@@ -1,0 +1,25 @@
+{
+  "name": "pointofsale",
+  "version": "1.0.0",
+  "description": "Retail or restaurant  POS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DMBarnett/pointofsale.git"
+  },
+  "author": "DMBarnett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DMBarnett/pointofsale/issues"
+  },
+  "homepage": "https://github.com/DMBarnett/pointofsale#readme",
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.1"
+  }
+}
