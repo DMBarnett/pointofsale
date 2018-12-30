@@ -1,11 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
-//const routes = require("./routes");
+const bodyParser = require("body-parser");
 const app = express();
 const PORT = process.env.port || 3000;
 
+
 app.use(express.urlencoded({ extended:true }));
-app.use(express.json());
+app.use(bodyParser.json());
+
+const products = require("./routes/api/products");
+app.use("/api/products", products);
+
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
