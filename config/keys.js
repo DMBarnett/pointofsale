@@ -1,3 +1,4 @@
 module.exports={
-  mongoURI: "mongodb://david:david1@ds115263.mlab.com:15263/pointofsale"
+  googleAuthSecret: "GbPWcc9cs3U2yL6Zmm4xoG4c",
+  googleAuthClientID:"512631670554-3j9ef3jcg4vn06qhe6bu6m9un6l6riku.apps.googleusercontent.com"
 }
