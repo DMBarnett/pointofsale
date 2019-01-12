@@ -1,0 +1,14 @@
+.navbar {
+  list-style-type: none;
+  color:rgb(243, 232, 200);
+  background-color: #2E1580;
+}
+
+a {
+  color: rgb(243, 232, 200);
+}
+
+.navbar.nav {
+  flex-direction: row;
+  display: flex;
+}
