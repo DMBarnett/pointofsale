@@ -1,0 +1,9 @@
+.footer-fixed {
+  position: fixed;
+  left:0;
+  bottom:0;
+  width:100%;
+  text-align: left;
+  color:rgb(243, 232, 200);
+  background-color: 2E1580;
+}

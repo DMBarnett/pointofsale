@@ -10,19 +10,13 @@ const PORT = process.env.port || 3001;
 
 app.use(express.urlencoded({ extended:true }));
 app.use(bodyParser.json());
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
-app.use(routes);
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+
 passport.use(new googleStrat({
   clientID: GSkey.googleAuthClientID,
   clientSecret: GSkey.googleAuthSecret,
   callbackURL:"/auth/google/callback"
 }, (accessToken)=>{
-
+  console.log(accessToken)
 }))
 
 app.get("/auth/google", passport.authenticate("google", {
@@ -31,6 +25,10 @@ app.get("/auth/google", passport.authenticate("google", {
 
 app.get("/auth/google/callback", passport.authenticate("google"))
 
+app.use(routes);
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
