@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Header from "./screens/Header";
 import Login from "./screens/Login";
-import Footer from "./screens/Footer"
+import Manager from "./screens/Manager";
+import User from "./screens/User"
 import './App.css';
 
-function App () {
+class App extends Component {
+  state ={
 
+  }
+
+
+  render(){  
     return (
       <Router>
         <div className="App">
-          <Header />
           <Switch>
             <Route exact path="/" component={Login}/>
-
+            <Route exact path="/MLogin" component={Manager}/>
+            <Route exact path="/ULogin" component={User}/>
           </Switch>
-          <Footer />
         </div>
       </Router>
     );
-  
+  }
 }
 
 export default App;
