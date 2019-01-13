@@ -7,3 +7,8 @@ CREATE TABLE Users(
     manager_status BOOLEAN NOT NULL,
     created_date TIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 )
+
+CREATE TABLE Items(
+    id INT(9) NOT NULL AUTO_INCREMENT,
+    item_name VARCHAR(255) NOT NULL,
+)
