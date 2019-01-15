@@ -1,0 +1,2 @@
+Is it better to load a section of the database when switching to a new screen, or pull the full db when you  first load into the page?
+  Is it going to be a trial and error question, or is there a standard?

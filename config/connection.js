@@ -1,13 +1,12 @@
-var express = require("express");
-var mysql = require("mysql");
+const express = require("express");
+const mysql = require("mysql");
 
-var app = express();
+const app = express();
 
-var PORT = process.env.port || 3001;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-var connection;
+const connection;
 
 if(process.env.JAWSDB_URL){
     connection = mysql.createConnection(process.env.JAWSDB_URL)

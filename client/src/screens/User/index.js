@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import "./style.css"
-import {Container, Row, Col, Button, Navbar, Nav, NavItem, NavLink,} from "reactstrap"
+import {Container, Row, Col, Navbar, Nav, NavItem, NavLink,} from "reactstrap"
 import NavButton from "../../components/Navbuttons";
 
 class User extends Component {
   state = {
     test: [{name:"test1", id:0}, {name:"test2", id:1}],
-    active: 0
+    active: 0,
+    categoriesForDisplay: [],
+
+  }
+
+  componentDidMount(){
+    console.log("Loaded");
   }
 
   navClick=id=>{
@@ -19,8 +25,8 @@ class User extends Component {
   render(){
     return (
       <div className="orderScreen">
-        <Container>
-          <Row>
+        <Container fluid>
+          <Row className="serverArea">
             <Col className="inputArea" xs="12" sm="6">
               <Row className="navBarRow">
                 <Navbar className="nav-pills">

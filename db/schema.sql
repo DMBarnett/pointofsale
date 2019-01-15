@@ -8,6 +8,13 @@ CREATE TABLE Users(
     created_date TIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 )
 
+CREATE TABLE Customers(
+    id INT(9) NOT NULL AUTO_INCREMENT,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    
+)
+
 CREATE TABLE Items(
     id INT(9) NOT NULL AUTO_INCREMENT,
     item_name VARCHAR(255) NOT NULL,

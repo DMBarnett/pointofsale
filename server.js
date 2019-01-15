@@ -7,6 +7,8 @@ const GSkey = require("./config/keys");
 const routes = require("./routes")
 const path =require("path")
 const PORT = process.env.port || 3001;
+// const db = require("models");
+
 
 app.use(express.urlencoded({ extended:true }));
 app.use(bodyParser.json());
