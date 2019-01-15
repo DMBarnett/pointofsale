@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./style.css"
 import {Container, Row, Col, Navbar, Nav, NavItem, NavLink,} from "reactstrap"
 import NavButton from "../../components/Navbuttons";
+import API from "../utils/API";
 
 class User extends Component {
   state = {
@@ -13,6 +14,12 @@ class User extends Component {
 
   componentDidMount(){
     console.log("Loaded");
+    this.loadCategories();
+  }
+
+  loadCategories=()=>{
+    //this will pull the categories for the navbar buttons in the server screen
+    
   }
 
   navClick=id=>{
