@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./style.css"
 import {Container, Row, Col, Navbar, Nav, NavItem, NavLink,} from "reactstrap"
 import NavButton from "../../components/Navbuttons";
-import API from "../utils/API";
+//import API from "../utils/API";
 
 class User extends Component {
   state = {
