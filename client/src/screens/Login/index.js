@@ -25,6 +25,12 @@ class Login extends Component{
       }).then(resp=>{
         if(resp.status === 200){
           event.preventDefault();
+          console.log(resp)
+          if(resp.data.manager){
+            this.props.history.push("/MLogin");
+          }else{
+            this.props.history.push("/ULogin");
+          }
           console.log('hello');
         }
       })

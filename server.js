@@ -7,6 +7,7 @@ const GSkey = require("./config/keys");
 const routes = require("./routes")
 const path =require("path")
 const PORT = process.env.port || 3001;
+const db = require("./models")
 // const db = require("models");
 
 
@@ -36,4 +37,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-app.listen(PORT, ()=>`Server running on ${PORT}`);
+db.sequelize.sync({ force: true }).then(function() {  
+  app.listen(PORT, ()=>`Server running on ${PORT}`);
+});

@@ -6,6 +6,13 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         len: [1]
       }
+    },
+    abbreviation: {
+      type: DataTypes.STRING,
+      validate: {
+        len: [3,3],
+        isUppercase: true,
+      }
     }
   })
 
