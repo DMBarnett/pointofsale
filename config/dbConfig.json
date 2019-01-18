@@ -1,26 +1,22 @@
 {
-  "dev": {
+  "development": {
+    "database": "point_of_sale",
     "username": "root",
     "password": "1111",
-    "database": "point_of_sale",
     "host": "127.0.0.1",
     "port": 3306,
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": null,
+    "password": "1111",
     "database": "database_test",
     "host": "127.0.0.1",
     "port": 3306,
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "port": 3306,
+    "use_env_variable": "JAWSDB_URL",
     "dialect": "mysql"
   }
 }

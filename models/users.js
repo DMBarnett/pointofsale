@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes)=>{
     },
     emp_id:{
       type:DataTypes.INTEGER,
-      autoIncrement: true,
       allowNull: false,
     },
     manager_status:{
@@ -22,9 +21,9 @@ module.exports = (sequelize, DataTypes)=>{
       allowNull: false,
       default: false,
     },
-    hire_date: Sequelize.Date,
-    createdAt: Sequelize.DATE,
-    updatedAt: Sequelize.DATE,
+    hire_date: DataTypes.DATE,
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
   })
 
   return User;
