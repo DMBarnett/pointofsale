@@ -10,6 +10,7 @@ const PORT = process.env.port || 3001;
 const db = require("./models")
 // const db = require("models");
 
+SALT_WORK_FACTOR = 12
 
 app.use(express.urlencoded({ extended:true }));
 app.use(bodyParser.json());
@@ -37,6 +38,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-db.sequelize.sync({ force: true }).then(function() {  
+db.sequelize.sync().then(function() {  
   app.listen(PORT, ()=>`Server running on ${PORT}`);
 });
