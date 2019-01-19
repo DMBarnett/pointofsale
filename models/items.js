@@ -16,11 +16,22 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     barcode: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      default: "000000000000",
+      validate:{
+        len:[12],
+        is: ["^[a-zA-Z0-9]+$",'i'],
+      }
     },
     category: {
-      type:DataTypes.STRING
-    }
+      type:DataTypes.STRING,
+      validate:{
+        len:[3,3],
+        is: ["^[A-Z0-9]+$",'i']
+      }
+    },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
   });
 
   Item.associate = function(models) {

@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) =>{
         min: 0.00
       }
     },
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
     //I need to find out what ids users can have, WotC, WH40k, etc.
   });
 

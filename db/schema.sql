@@ -24,7 +24,7 @@ CREATE TABLE Items(
     category VARCHAR(255),
 )
 
-CREATE TABLE Categories(
+CREATE TABLE Categorys(
     id INT(9) NOT NULL AUTO_INCREMENT,
     category_name VARCHAR(255) NOT NULL,
 )

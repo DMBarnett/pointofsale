@@ -12,46 +12,24 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    return queryInterface.bulkInsert("users", [
+    return queryInterface.bulkInsert("customers", [
       {
-        username: "David",
-        first_name:"David",
-        last_name:"Barnett",
-        manager:true,
-        hire_date: new Date(),
+        name: "John Cussack",
+        store_credit: 50.00,
         createdAt: new Date(),
         updatedAt: new Date(),
-        password: "admin"
       },
       {
-        username: "Brian",
-        first_name:"Brian",
-        last_name:"Smith",
-        manager:false,
-        hire_date: new Date(),
+        name: "Joan Riversk",
+        store_credit: 300.00,
         createdAt: new Date(),
         updatedAt: new Date(),
-        password: "admin"
       },
       {
-        username: "John",
-        first_name:"John",
-        last_name:"Doe",
-        manager:false,
-        hire_date: new Date(),
+        name: "Robert Redford",
+        store_credit: 10.00,
         createdAt: new Date(),
         updatedAt: new Date(),
-        password: "admin"
-      },
-      {
-        username: "Amy",
-        first_name:"Amy",
-        last_name:"Adams",
-        manager:false,
-        hire_date: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        password: "admin"
       },
     ])
   },

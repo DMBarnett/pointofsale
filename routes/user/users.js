@@ -14,7 +14,7 @@ router.post("/login",
       }
     }).then(function(returned){
       console.log(returned);
-      if(returned.manager_status){
+      if(returned.manager){
         const userlogin = {
           username: req.body.username,
           loggedIn: true,

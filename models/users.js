@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes)=>{
       type:DataTypes.STRING,
       allowNull: false,
     },
-    manager_status:{
+    manager:{
       type:DataTypes.BOOLEAN,
       allowNull: false,
       default: false,
@@ -25,10 +25,6 @@ module.exports = (sequelize, DataTypes)=>{
     updatedAt: DataTypes.DATE,
     password: {
       type:DataTypes.STRING,
-      validate:{
-        notNull: true,
-        notEmpty: true
-      }
     }
   },{
     classMethods: {
