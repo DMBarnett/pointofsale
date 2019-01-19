@@ -6,30 +6,16 @@ const googleStrat = require("passport-google-oauth20").Strategy;
 const GSkey = require("./config/keys");
 const routes = require("./routes")
 const path =require("path")
-const PORT = process.env.port || 3001;
+const PORT = process.env.port || 3002;
 const db = require("./models")
-// const db = require("models");
-
-SALT_WORK_FACTOR = 12
 
 app.use(express.urlencoded({ extended:true }));
 app.use(bodyParser.json());
 
-passport.use(new googleStrat({
-  clientID: GSkey.googleAuthClientID,
-  clientSecret: GSkey.googleAuthSecret,
-  callbackURL:"/auth/google/callback"
-}, (accessToken)=>{
-  console.log(accessToken)
-}))
-
-app.get("/auth/google", passport.authenticate("google", {
-  scope: ["profile", "email"]
-}))
-
-app.get("/auth/google/callback", passport.authenticate("google"))
+require("./routes/api/categories.js")(app);
 
 app.use(routes);
+
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
@@ -39,5 +25,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 db.sequelize.sync().then(function() {  
-  app.listen(PORT, ()=>`Server running on ${PORT}`);
+  app.listen(PORT, ()=>{console.log(`Server running on ${PORT}`)});
 });

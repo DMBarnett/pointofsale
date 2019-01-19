@@ -1,0 +1,13 @@
+Build pos working area on click of item buttons
+get api call to tcgplayer working
+clean up css for user screen
+  Need "Ring Up" button
+  Should chose Card/Cash/Account on sale
+
+Build manager screen 
+  Needs to include
+    CRUD Card/Set/User/Customer
+    Pull TCG data button(timed?)
+
+Fix passport
+  Do I fake it?

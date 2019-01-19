@@ -1,13 +1,28 @@
 const express = require("express");
 const router = express.Router();
 
-const Product = require("../../models/items")
+const db = require("../../models")
 
 //Retrieve all items api/products
 //Gets from db
 router.get("/", (req, res) =>{
-  Product.find({})
-  .then(products => res.json(products))
+  db.Item.findAll({})
+  .then(products => {
+    console.log("items tester");
+    res.json(products);
+  })
+});
+
+router.get("/:abb", (req, res) =>{
+  db.Item.findAll({
+    where:{
+      category:req.params.abb
+    }
+  })
+  .then(products => {
+    console.log("item category tester");
+    res.json(products);
+  })
 })
 
 //Create a new product to the db
