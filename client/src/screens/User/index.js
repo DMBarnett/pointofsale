@@ -6,6 +6,7 @@ import ItemButton from "../../components/Itembutton";
 import API from "../../utils/API";
 import BillOfSale from "../../components/BillOfSale";
 import TotalFooter from "../../components/TotalFooter";
+import ActionRow from "../../components/ActionRow";
 
 class User extends Component {
   state = {
@@ -15,6 +16,7 @@ class User extends Component {
     itemsForDisplay:[],
     saleItems:[],
     total:0,
+    manager: false,
   }
 
   componentDidMount(){
@@ -83,7 +85,7 @@ class User extends Component {
       newItem.quantity = tester[0].quantity+1;
       updatedSaleItems.find(card=>card.id===newItem.id).quantity = newItem.quantity;
       updatedSaleItems.forEach(item=>{
-        totalPrice= totalPrice+(item.quantity*item.price)
+        totalPrice= totalPrice+(item.quantity*item.price) 
       })
       this.setState({
         saleItems:updatedSaleItems,
@@ -136,11 +138,16 @@ class User extends Component {
                 <Col xs="6"><h4>Card Name</h4></Col>
                 <Col xs="2"><h4>Price</h4></Col>
               </Row>
-                {this.state.saleItems.map(item=>(
-                  <BillOfSale key={item.id} forSale={item} deleteItem={this.deleteItem} />
-                ))}
-              <TotalFooter total={this.state.total} pay={this.pay} />
+              {this.state.saleItems.map(item=>(
+                <BillOfSale key={item.id} forSale={item} deleteItem={this.deleteItem} />
+              ))}
             </Col>
+          </Row>
+          <Row className="serverArea footer-area">
+            <Col className="bottom-nav" xs="6">
+            <ActionRow isManager={this.state.manager}/>
+            </Col>
+            <Col className="bottom-nav" xs="6"><TotalFooter total={this.state.total} pay={this.pay} /></Col>
           </Row>
         </Container>
       </div>
