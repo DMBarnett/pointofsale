@@ -7,8 +7,8 @@ module.exports = function(app){
     console.log("test")
     db.Category.findAll({})
       .then(resp=>{
-        console.log(resp);
-        console.log("Rebecca")
+        // console.log(resp);
+        // console.log("Rebecca")
         res.json(resp)
       })
   })

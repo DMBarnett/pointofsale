@@ -1,8 +1,10 @@
-Build pos working area on click of item buttons
-get api call to tcgplayer working
-clean up css for user screen
-  Need "Ring Up" button
+##Build pos working area on click of item buttons
+  Working, need to style it
+  Need to build footer and finalize sale button
+  clean up css for user screen
   Should chose Card/Cash/Account on sale
+
+get api call to tcgplayer working
 
 Build manager screen 
   Needs to include

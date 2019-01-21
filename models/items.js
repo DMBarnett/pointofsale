@@ -30,6 +30,12 @@ module.exports = function(sequelize, DataTypes) {
         is: ["^[A-Z0-9]+$",'i']
       }
     },
+    quantity:{
+      type:DataTypes.INTEGER,
+      validate:{
+        is: ["^[0-9]+$",'i']
+      }
+    },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   });
