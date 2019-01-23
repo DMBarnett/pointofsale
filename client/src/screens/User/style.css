@@ -76,3 +76,7 @@ a {
 .footer-area{
   height:60px;
 }
+
+#pay-modal{
+  display: none;
+}

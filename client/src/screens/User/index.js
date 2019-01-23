@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./style.css"
-import {Container, Row, Col, Navbar, Nav} from "reactstrap"
+import {Container, Row, Col, Navbar, Nav, Form, FormGroup, Label, Input} from "reactstrap"
 import NavButton from "../../components/Navbuttons";
 import ItemButton from "../../components/Itembutton";
 import API from "../../utils/API";
@@ -17,6 +17,12 @@ class User extends Component {
     saleItems:[],
     total:0,
     manager: false,
+    customer: "",
+    custCredit:0.00,
+    possCust:[],
+    choice: false,
+    custSelect: false,
+    chosenCust:{},
   }
 
   componentDidMount(){
@@ -55,6 +61,7 @@ class User extends Component {
   navClick=(id, abb)=>{
     let targetID = id;
     let targetABB = abb;
+    console.log(targetABB)
     API.getItemsPerCategory(targetABB).then(res=>{
       this.setState({
         active:targetID,
@@ -106,9 +113,73 @@ class User extends Component {
     //Works as intended, much longer than it needs to be, could be cleaned up if time allows
   }
 
-  pay=()=>{
-
+  pay=(input)=>{
+    const arrToRemove = this.state.saleItems;
+    const price = this.state.total;
+    switch(input){
+      case "C":
+        console.log("Your card has been charged");
+        break;
+      default:
+        return;
+    }
   }
+
+  handleChange = event =>{
+    this.setState({
+      customer: event.target.value
+    })
+  }
+
+  lookup=()=>{
+    const customer=this.state.customer;
+    console.log(customer)
+    API.getUserList(customer).then(res=>{
+      console.log(res);
+      this.setState({
+        possCust:res.data,
+        custSelect: true,
+        choice: false,
+      })
+    })
+  }
+
+  applyCredit=()=>{
+    let newTotal = this.state.total;
+    let custCredit = this.state.custCredit
+    if(newTotal > custCredit){
+      newTotal = newTotal-custCredit;
+      custCredit = 0;
+    }else if(newTotal === custCredit){
+      newTotal = 0;
+      custCredit = 0;
+    }else{
+      custCredit = custCredit-newTotal;
+      newTotal=0;
+    }
+    const working = {
+      id:this.state.chosenCust.id,
+      newCredit:custCredit,
+    }
+    API.useCredit(working).then(res=>{
+      console.log(res)
+      this.setState({
+        custCredit:0.00,
+        total:newTotal,
+        choice: false,
+      })
+    })
+  }
+
+  chooseCust=(input)=>{
+    const storeCredit = this.state.possCust.filter(cust=>cust.id===input);
+    this.setState({
+      chosenCust: storeCredit[0],
+      custSelect: false,
+      choice: true,
+      custCredit: storeCredit[0].store_credit,
+    })
+  } 
 
   render(){
     return (
@@ -147,9 +218,83 @@ class User extends Component {
             <Col className="bottom-nav" xs="6">
             <ActionRow isManager={this.state.manager}/>
             </Col>
+            <div id="store-credit-modal" className="modal fade" aria-hidden="true">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLiveLabel">Credit Lookup Screen</h5>
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div className="modal-body">
+                    <Row classID="search-customer">
+                      <Col xs="8" >
+                        <Form>
+                          <FormGroup>
+                            <Label for="customer-name">Customer Name</Label>
+                            <Input onSubmit={()=>this.lookup()} onChange={this.handleChange} id="customer-name" placeholder="Enter name here"/>
+                          </FormGroup>
+                        </Form>
+                      </Col>
+                      <Col xs="4">
+                        <button type="button" className="btn btn-danger" onClick={()=>this.lookup()}>Lookup</button>
+                      </Col>
+                    </Row>
+                    {this.state.custSelect &&
+                      this.state.possCust.map(customer=>(
+                        <Row>
+                          <Col xs="8">
+                            <h4>{customer.name}</h4>
+                          </Col>
+                          <Col xs="1">
+                            <h5>${customer.store_credit}</h5>
+                          </Col>
+                          <Col xs="3">
+                            <button className="btn btn-primary"data-id={customer.id} onClick={()=>this.chooseCust(customer.id)}>Select</button>
+                          </Col>
+                        </Row>
+                      ))
+                    }
+                    {this.state.choice &&
+                    <Row>
+                      <Col xs="8">
+                        <h4>Do you want to apply ${this.state.custCredit} to this order?</h4>
+                      </Col>
+                      <Col xs="4">
+                        <button className="btn btn-success" onClick={()=>this.applyCredit()}>Apply</button>
+                      </Col>
+                    </Row>}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="pay-modal" className="modal fade" aria-hidden="true">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLiveLabel">Pay Screen</h5>
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div className="modal-body">
+                    <Row>
+                      <Col xs="4"><h4>${this.state.total}</h4></Col>
+                      <Col xs="4">
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={()=>this.pay("C")}>Credit</button>
+                      </Col>
+                      <Col xs="4">
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={()=>this.pay("C")}>Debit</button>
+                      </Col>
+                    </Row>
+                  </div>
+                </div>
+              </div>
+            </div>
             <Col className="bottom-nav" xs="6"><TotalFooter total={this.state.total} pay={this.pay} /></Col>
           </Row>
-        </Container>
+        </Container> 
       </div>
     )
   }

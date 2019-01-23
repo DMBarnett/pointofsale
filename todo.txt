@@ -1,9 +1,14 @@
 ##Build pos working area on click of item buttons
   Working, need to style it
   ##Need to build footer and finalize sale button
-    needs popup card for payment
+    ##needs popup card for payment
   clean up css for user screen
   Should chose Card/Cash/Account on sale
+  make applyCredit function
+  make lookup function
+
+
+
 
 get api call to tcgplayer working
 

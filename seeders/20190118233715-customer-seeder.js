@@ -14,19 +14,19 @@ module.exports = {
     */
     return queryInterface.bulkInsert("customers", [
       {
-        name: "John Cussack",
+        name: "john cussack",
         store_credit: 50.00,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: "Joan Riversk",
+        name: "joan riversk",
         store_credit: 300.00,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: "Robert Redford",
+        name: "robert redford",
         store_credit: 10.00,
         createdAt: new Date(),
         updatedAt: new Date(),
