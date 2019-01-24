@@ -18,5 +18,8 @@ export default {
   },
   useCredit: function(passed){
     return axios.put("/user/credit/", {id:passed.id,newCredit:passed.newCredit})
+  },
+  sellItems: function(passed){
+    return axios.put("/api/items/", {pass:passed});
   }
 }

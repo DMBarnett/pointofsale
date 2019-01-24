@@ -23,6 +23,7 @@ class User extends Component {
     choice: false,
     custSelect: false,
     chosenCust:{},
+    finalSale: false,
   }
 
   componentDidMount(){
@@ -40,11 +41,18 @@ class User extends Component {
   }
 
   deleteItem=id=>{
+    console.log(id)
     const forDeletion = this.state.saleItems.filter(item=>item.id===id);
 
     const position = this.state.saleItems.map(each=> each.id).indexOf(forDeletion[0].id);
 
     const newArr = this.state.saleItems;
+
+    let targetItem=this.state.itemsForDisplay.map(function(x) {return x.id; }).indexOf(id);;
+    let fixQuant = this.state.itemsForDisplay;
+    fixQuant[targetItem].quantity++;
+
+    let newTotal = this.state.total-forDeletion[0].price
     newArr.forEach(element => {
       if(element.id === forDeletion[0].id){
         element.quantity--;
@@ -54,7 +62,9 @@ class User extends Component {
       }
     });
     this.setState({
-      saleItems:newArr
+      saleItems:newArr,
+      itemsForDisplay:fixQuant,
+      total:newTotal,
     })
   }
 
@@ -71,43 +81,49 @@ class User extends Component {
   };
 
 
-  addToBill=id=>{
-    const working = this.state.itemsForDisplay.filter(item=>{
-      return item.id === id;
-    })
+  addToBill=(id, quant)=>{
+    if(quant>0){
+      const working = this.state.itemsForDisplay.filter(item=>{
+        return item.id === id;
+      })
+      console.log(working[0]);
+      const newItem = {
+        quantity: 1,
+        name: working[0].name,
+        price: working[0].price,
+        id: working[0].id,
+      }
 
-    const newItem = {
-      quantity: 1,
-      name: working[0].name,
-      price: working[0].price,
-      id: working[0].id,
-    }
+      const updatedSaleItems = this.state.saleItems;
 
-    const updatedSaleItems = this.state.saleItems;
-
-    let tester = this.state.saleItems.filter(item=>item.id===newItem.id);
-    let totalPrice = 0.00;
-    if(tester.length>=1){
-      //This checks to make sure nothing in the saleItems array will become a duplicate
-      newItem.quantity = tester[0].quantity+1;
-      updatedSaleItems.find(card=>card.id===newItem.id).quantity = newItem.quantity;
-      updatedSaleItems.forEach(item=>{
-        totalPrice= totalPrice+(item.quantity*item.price) 
-      })
-      this.setState({
-        saleItems:updatedSaleItems,
-        total:totalPrice
-      })
-    }else{
-      updatedSaleItems.push(newItem);
-      updatedSaleItems.forEach(item=>{
-        totalPrice= totalPrice+(item.quantity*item.price)
-      })
-      this.setState({
-        saleItems:updatedSaleItems,
-        total:totalPrice,
-        
-      })
+      let tester = this.state.saleItems.filter(item=>item.id===newItem.id);
+      let totalPrice = 0.00;
+      let targetItem=this.state.itemsForDisplay.map(function(x) {return x.id; }).indexOf(working[0].id);;
+      let newArr = this.state.itemsForDisplay;
+      newArr[targetItem].quantity--;
+      if(tester.length>=1){
+        //This checks to make sure nothing in the saleItems array will become a duplicate
+        newItem.quantity = tester[0].quantity+1;
+        updatedSaleItems.find(card=>card.id===newItem.id).quantity = newItem.quantity;
+        updatedSaleItems.forEach(item=>{
+          totalPrice= totalPrice+(item.quantity*item.price) 
+        })
+        this.setState({
+          saleItems:updatedSaleItems,
+          total:totalPrice,
+          itemsForDisplay:newArr,
+        })
+      }else{
+        updatedSaleItems.push(newItem);
+        updatedSaleItems.forEach(item=>{
+          totalPrice= totalPrice+(item.quantity*item.price)
+        })
+        this.setState({
+          saleItems:updatedSaleItems,
+          total:totalPrice,
+          
+        })
+      }
     }
     //This needs to track items in the sale matrix as objects, so multiples dont fill up the screen
     //Works as intended, much longer than it needs to be, could be cleaned up if time allows
@@ -117,12 +133,46 @@ class User extends Component {
     const arrToRemove = this.state.saleItems;
     const price = this.state.total;
     switch(input){
-      case "C":
+      case "card":
         console.log("Your card has been charged");
+        this.finalSale();
+        break;
+      case "cash":
+        console.log("Your card has been charged");
+        this.finalSale();
         break;
       default:
         return;
     }
+  }
+
+  finalSale=()=>{
+    const passed = {
+      itemsSold: this.state.saleItems,
+      customer: this.state.chosenCust,
+      itemsOwned:this.state.itemsForDisplay
+    }
+    console.log(passed);
+    API.sellItems(passed).then(res=>{
+      console.log(res);
+      this.setState({
+        active: 0,
+        categoriesForDisplay: [],
+        itemsForDisplay:[],
+        saleItems:[],
+        total:0,
+        manager: false,
+        customer: "",
+        custCredit:0.00,
+        possCust:[],
+        choice: false,
+        custSelect: false,
+        chosenCust:{},
+        finalSale: false,
+      });
+      this.loadCategories();
+      console.log("reset after sale")
+    })
   }
 
   handleChange = event =>{
@@ -163,10 +213,15 @@ class User extends Component {
     }
     API.useCredit(working).then(res=>{
       console.log(res)
+      let foo = false;
+      if(newTotal === 0){
+        foo = true;
+      }
       this.setState({
         custCredit:0.00,
         total:newTotal,
         choice: false,
+        finalPrice: foo,
       })
     })
   }
@@ -238,16 +293,16 @@ class User extends Component {
                         </Form>
                       </Col>
                       <Col xs="4">
-                        <button type="button" className="btn btn-danger" onClick={()=>this.lookup()}>Lookup</button>
+                        <button type="button" className="btn btn-danger lookup" onClick={()=>this.lookup()}>Lookup</button>
                       </Col>
                     </Row>
                     {this.state.custSelect &&
                       this.state.possCust.map(customer=>(
-                        <Row>
-                          <Col xs="8">
+                        <Row className="customer-name-return">
+                          <Col xs="7">
                             <h4>{customer.name}</h4>
                           </Col>
-                          <Col xs="1">
+                          <Col xs="2">
                             <h5>${customer.store_credit}</h5>
                           </Col>
                           <Col xs="3">
@@ -265,6 +320,16 @@ class User extends Component {
                         <button className="btn btn-success" onClick={()=>this.applyCredit()}>Apply</button>
                       </Col>
                     </Row>}
+                    {this.state.finalPrice&&
+                    <Row>
+                      <Col xs="8">
+                        <h5>The total is $0.00, do you want to finalize the sale?</h5>
+                      </Col>
+                      <Col xs="4">
+                        <button onClick={()=>this.finalSale()} className="btn btn-success" data-dismiss="modal" type="button">Finalize</button>
+                      </Col>
+                    </Row>
+                    }
                   </div>
                 </div>
               </div>
@@ -280,12 +345,12 @@ class User extends Component {
                   </div>
                   <div className="modal-body">
                     <Row>
-                      <Col xs="4"><h4>${this.state.total}</h4></Col>
+                      <Col xs="4"><h4>${Math.round(this.state.total*100)/100}</h4></Col>
                       <Col xs="4">
-                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={()=>this.pay("C")}>Credit</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={()=>this.pay("card")}>Card</button>
                       </Col>
                       <Col xs="4">
-                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={()=>this.pay("C")}>Debit</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={()=>this.pay("cash")}>Cash</button>
                       </Col>
                     </Row>
                   </div>

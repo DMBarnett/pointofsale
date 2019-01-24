@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     price_each:{
-      type:DataTypes.INTEGER,
+      type:DataTypes.FLOAT,
       allowNull: false,
     }
   });

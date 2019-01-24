@@ -7,7 +7,7 @@ function ActionRow(props){
   return(
     <div>
       <a href="/MLogin" className={isManager}>Add Customer</a>
-      <a href="/" className="action-btn btn btn-primary">Lookup Customer</a>
+      <a href="#" className="action-btn btn btn-primary" data-toggle="modal" data-target="#store-credit-modal">Lookup Customer</a>
     </div>
   )
 }

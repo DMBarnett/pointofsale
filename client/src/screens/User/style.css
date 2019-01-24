@@ -80,3 +80,11 @@ a {
 #pay-modal{
   display: none;
 }
+
+.lookup{
+  margin-top:28px;
+}
+
+.customer-name-return{
+  margin-bottom: 10px;
+}

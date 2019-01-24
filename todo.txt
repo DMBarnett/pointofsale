@@ -3,12 +3,15 @@
   ##Need to build footer and finalize sale button
     ##needs popup card for payment
   clean up css for user screen
-  Should chose Card/Cash/Account on sale
-  make applyCredit function
-  make lookup function
+  ##Should chose Card/Cash/Account on sale
+  ##make applyCredit function
+  ##make lookup function
 
+Fix history.price to take float, need to rebuild DB
 
+##Make item buttons disable when quantity === 0 
 
+##reduce this.state.total when items are deleted
 
 get api call to tcgplayer working
 
