@@ -147,9 +147,18 @@ class User extends Component {
   }
 
   finalSale=()=>{
+    let foo ={}
+    if(this.state.chosenCust.id){
+      foo=this.state.chosenCust
+    }else{
+      foo={
+        name: "cash",
+        id:0
+      }
+    }
     const passed = {
       itemsSold: this.state.saleItems,
-      customer: this.state.chosenCust,
+      customer: foo,
       itemsOwned:this.state.itemsForDisplay
     }
     console.log(passed);

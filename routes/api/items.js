@@ -47,26 +47,15 @@ router.put("/", (req,res)=>{
       quantity:element.quantity
     },{where:{id:element.id}})
   })
-  if(working.customer.id){
-    working.itemsSold.forEach(element=>{
-      db.History.create({
-        customerID:working.customer.id,
-        item_id:element.id,
-        quantity:element.quantity,
-        price_each:element.price
-      })       
-    })
-  }else{
-    working.itemsSold.forEach(element=>{
-      db.History.create({
-        customerID:0,
-        item_id:element.id,
-        quantity:element.quantity,
-        price_each:element.price
-      })       
-    })
-  }
 
+  working.itemsSold.forEach(element=>{
+    db.History.create({
+      customerID:working.customer.id,
+      item_id:element.id,
+      quantity:element.quantity,
+      price_each:element.price
+    })       
+  })
 })
 
 //Update an item
