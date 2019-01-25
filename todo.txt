@@ -23,6 +23,7 @@ Build manager screen
   Needs to include
     CRUD Card/Set/User/Customer
     Pull TCG data button(timed?)
+    Build each component
 
 Fix passport
   Do I fake it?

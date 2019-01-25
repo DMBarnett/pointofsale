@@ -249,7 +249,7 @@ class User extends Component {
   render(){
     return (
       <div className="orderScreen">
-        <Container fluid>
+        <Container fluid className="container-margins">
           <Row className="serverArea">
             <Col className="inputArea" xs="12" sm="6">
               <Row className="navBarRow">
