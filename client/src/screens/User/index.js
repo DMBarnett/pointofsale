@@ -16,7 +16,7 @@ class User extends Component {
     itemsForDisplay:[],
     saleItems:[],
     total:0,
-    manager: false,
+    manager: true,
     customer: "",
     custCredit:0.00,
     possCust:[],
@@ -156,6 +156,7 @@ class User extends Component {
         id:0
       }
     }
+
     const passed = {
       itemsSold: this.state.saleItems,
       customer: foo,
@@ -280,7 +281,7 @@ class User extends Component {
           </Row>
           <Row className="serverArea footer-area">
             <Col className="bottom-nav" xs="6">
-            <ActionRow isManager={this.state.manager}/>
+              <ActionRow isManager={this.state.manager}/>
             </Col>
             <div id="store-credit-modal" className="modal fade" aria-hidden="true">
               <div className="modal-dialog" role="document">

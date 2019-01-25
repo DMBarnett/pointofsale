@@ -37,26 +37,50 @@ router.post("/", (req, res) =>{
   newProduct.save().then(product => res.json(product))
 })
 
+
+history=(input, working, res)=>{
+  const quantSold = working.itemsSold.filter(x=>x.id===input.id);
+  console.log("quantSold");
+  console.log(quantSold);
+  console.log(input);
+  console.log(working.itemsSold.length);
+
+  db.History.create({
+    customerID:working.customer.id,
+    item_id:input.id,
+    quantity:quantSold[0].quantity,
+    price_each:input.price
+  }).then((result)=>{
+    counterForUpdate++;
+    if(counterForUpdate ===targetForUpdate){
+      counterForUpdate = 0;
+      targetForUpdate=0;
+      res.json(result);
+    }
+  })
+}
+
+let counterForUpdate = 0;
+let targetForUpdate = 0;
 //Final Sale procedures
 //put and record sale
 router.put("/", (req,res)=>{
   const working = req.body.pass;
-  console.log(working);
-  working.itemsOwned.forEach(element=>{
+  const arrFoo= working.itemsSold.map(element=>element.id)
+  const itemsSoldArr = working.itemsOwned.filter(each=>{
+    return arrFoo.indexOf(each.id)>=0;
+  })
+  targetForUpdate = working.itemsSold.length
+  console.log(itemsSoldArr)
+  itemsSoldArr.forEach(element=>{
+    console.log(element);
     db.Item.update({
       quantity:element.quantity
     },{where:{id:element.id}})
+      .then(()=>history(element, working, res));
+       
+      })
   })
-
-  working.itemsSold.forEach(element=>{
-    db.History.create({
-      customerID:working.customer.id,
-      item_id:element.id,
-      quantity:element.quantity,
-      price_each:element.price
-    })       
-  })
-})
 
 //Update an item
 //router

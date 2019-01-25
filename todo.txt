@@ -9,6 +9,10 @@
 
 Fix history.price to take float, need to rebuild DB
 
+Fix bug:
+  When switching sets on user page, deleting an item from another set causes an error
+  When switching sets, if an item is selected, when switching back to the initial set it wont reduce the quantity available for purchase
+
 ##Make item buttons disable when quantity === 0 
 
 ##reduce this.state.total when items are deleted
