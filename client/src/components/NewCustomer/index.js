@@ -1,5 +1,5 @@
 import React, { Component} from "react";
-import  {Row, Col } from "reactstrap"
+import  {Row, Col, Form, FormGroup, Label, Input } from "reactstrap"
 import "./style.css"
 
 class NewCustomer extends Component{

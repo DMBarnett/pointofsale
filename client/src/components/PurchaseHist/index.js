@@ -5,7 +5,7 @@ import API from "../../utils/API"
 
 class PurchaseHist extends Component{
   state ={
-    history=[]
+    history:[]
   }
 
   componentDidMount(){

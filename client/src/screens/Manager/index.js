@@ -55,45 +55,27 @@ class Manager extends Component{
       quantity: this.state.quantity,
       price:0.00,
     }
-    API.checkIfExists(newCard).then(res=>{
-      console.log(res)
-      if(res.data.length && res.data[0].name){
+    API.checkIfExists(newCard).then(ret=>{
+      console.log(ret)
+      if(ret.data.length && ret.data[0].name){
         //This needs to check if card exist
         this.setState({
           cardAlreadyExists:true,
         })
       }else{
-        console.log(res.data);
-        const work = res.data
-        API.checkIfCardReal(newCard).then(res=>{
-          console.log(res)
-          console.log(res.data)
+        console.log(ret.data);
+        const work = ret.data
+        API.checkIfCardReal(newCard).then(ret=>{
+          console.log(ret)
+          if(ret.status == 200){
+            this.setState({
+              createCardSuccess:true,
+              cardName:"",
+              setID:"",
+              quantity:0
+            })
+          }
         });
-          //   if(res.){
-        //     newCard.price = res.
-        //     //need to find out where price comes back in res
-        //     //then pass to createCard
-        //     API.createCard(newCard).then(res=>{
-        //       if(res.){
-        //         //Check for success, then pass back to page 
-        //         this.setState({
-        //           createCardSuccess:true,
-        //         })
-        //       }else{
-        //         //Pass back failure, tell user to check spelling or set
-        //         this.setState({
-        //           createCardFailure:true,
-        //         })
-        //       }
-        //     }
-
-        //     )
-        //   }else{
-        //     this.setState({
-        //       cardReal: true,
-        //     })
-        //   }
-        // })
       }
     })
   }
