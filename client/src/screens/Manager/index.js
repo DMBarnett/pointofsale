@@ -125,6 +125,8 @@ class Manager extends Component{
             {this.state.switchScreen.newC && <NewCustomer />}
             {this.state.switchScreen.manageC && <ManageC />}
             {this.state.switchScreen.addS && <AddSet />}
+            {this.state.switchScreen.inv && <UpdateInv />}
+            {this.state.switchScreen.hist && <PurchaseHist />}
             {this.state.switchScreen.addC && 
             <Row>
             <Col>
@@ -145,8 +147,6 @@ class Manager extends Component{
               </Form>
             </Col>
           </Row>}
-            {this.state.switchScreen.inv && <UpdateInv />}
-            {this.state.switchScreen.hist && <PurchaseHist />}
             </Col>
           </Row>
         </Container>

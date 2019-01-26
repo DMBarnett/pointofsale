@@ -24,6 +24,7 @@ Build manager screen
     CRUD Card/Set/User/Customer
     Pull TCG data button(timed?)
     Build each component
+    History rows need building
 
 Fix passport
   Do I fake it?

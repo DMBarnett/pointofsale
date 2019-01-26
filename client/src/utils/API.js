@@ -26,8 +26,12 @@ export default {
     console.log("checkifexits in API")
     console.log(passed);
     return axios.put("/api/manager", {pass:passed});
-  }
+  },
   checkifCardReal: function(cardData){
-    return axios.
+    //return axios.
+    return "Hello";
+  },
+  getHistory: function(){
+    return axios.get("/api/history");
   }
 }
