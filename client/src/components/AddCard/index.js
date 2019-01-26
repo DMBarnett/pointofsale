@@ -1,15 +1,11 @@
 import React from "react";
-import  {Row, Col } from "reactstrap"
+import  {Row, Col, Form, Input, FormGroup, Label } from "reactstrap"
 import "./style.css"
 
 function AddCard(props){
   return(
     <div>
-      <Row>
-        <Col>
-        <h1> Add Card</h1>
-        </Col>
-      </Row>
+      
     </div>
   )
 }

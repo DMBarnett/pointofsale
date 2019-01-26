@@ -21,5 +21,13 @@ export default {
   },
   sellItems: function(passed){
     return axios.put("/api/items/", {pass:passed});
+  },
+  checkIfExists: function(passed){
+    console.log("checkifexits in API")
+    console.log(passed);
+    return axios.put("/api/manager", {pass:passed});
+  }
+  checkifCardReal: function(cardData){
+    return axios.
   }
 }

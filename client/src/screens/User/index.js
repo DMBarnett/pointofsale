@@ -34,6 +34,9 @@ class User extends Component {
   loadCategories=()=>{
     //this will pull the categories for the navbar buttons in the server screen
     API.getCategories().then(res =>{
+      console.log(res.data)
+      console.log(res.data[0])
+      console.log(res.data[0].name)
       this.setState({
         categoriesForDisplay:res.data
       })
@@ -73,6 +76,7 @@ class User extends Component {
     let targetABB = abb;
     console.log(targetABB)
     API.getItemsPerCategory(targetABB).then(res=>{
+      console.log(res);
       this.setState({
         active:targetID,
         itemsForDisplay:res.data
