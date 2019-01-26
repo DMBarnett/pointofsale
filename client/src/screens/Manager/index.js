@@ -65,8 +65,11 @@ class Manager extends Component{
       }else{
         console.log(res.data);
         const work = res.data
-        // API.checkIfCardReal(newCard).then(res=>{
-        //   if(res.){
+        API.checkIfCardReal(newCard).then(res=>{
+          console.log(res)
+          console.log(res.data)
+        });
+          //   if(res.){
         //     newCard.price = res.
         //     //need to find out where price comes back in res
         //     //then pass to createCard
