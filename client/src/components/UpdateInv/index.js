@@ -8,7 +8,8 @@ class UpdateInv extends Component{
   state={
     inventory:[],
     warningQPopup:false,
-    warningDPopup:false
+    warningDPopup:false,
+    reset:0
   }
 
   componentDidMount(){
@@ -27,11 +28,25 @@ class UpdateInv extends Component{
 
   updateInv=(id)=>{
     //Need to call API and update inventory here
+    const original = this.state.inventory.filter(x=>x.id===id)[0].quantity
+    let newQuant = 0
+    console.log()
+    if(this.state[id].charAt(0)=== "-"){
+      let foo = this.state[id].split("").slice(1).join("");
+      foo = parseInt(foo)
+      newQuant = original - foo;
+      console.log("minus")
+      console.log(foo)
+
+    }else{
+      let foo = parseInt(this.state[id])
+      newQuant = original + foo;
+    }
     const passing = {
       id:id,
-      quantity: this.state.id
+      quantity: newQuant
     }
-    console.log()
+    console.log(passing)
     API.updateInventory(passing).then(res=>{
       if(res.status===200){
         this.loadInventory();
@@ -45,14 +60,9 @@ class UpdateInv extends Component{
   }
 
   handleChange = event =>{
-    if(event.target.value<event.target.dataset.max){
-      this.setState({
-        ...this.state, [event.target.id]: event.target.value
-      })
-      console.log(this.state)
-    }else{
-      this.setState()
-    }
+    this.setState({
+      ...this.state, [event.target.id]: event.target.value
+    })
   }
 
   deleteItem=id=>{
@@ -95,7 +105,7 @@ class UpdateInv extends Component{
             </Row>
             <br/>
             {this.state.inventory.map(each=>(
-              <div className="inventoryRows">
+              <div key={each.id} className="inventoryRows">
                 <Row key={each.id}>
                 <Col xs="2">
                   <h6>{each.name}:{each.category}</h6>
@@ -109,9 +119,9 @@ class UpdateInv extends Component{
                 <Col xs="4">
                   <Form>
                     <div className="input-group">
-                      <input data-max={each.quantity} data-current="0" onChange={this.handleChange} id={each.id} className="form-control width100" type="number"/>
+                      <input data-max={each.quantity} min={`-${each.quantity}`} data-current="0" onChange={this.handleChange} id={each.id} className="form-control width100" type="number"/>
                       <span className="input-group-btn">
-                        <button className="btn btn-success">Submit</button>
+                        <button className="btn btn-success" onClick={()=>this.updateInv(each.id)}>Submit</button>
                       </span>
                     </div>
                   </Form>

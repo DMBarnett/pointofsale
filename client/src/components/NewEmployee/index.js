@@ -5,12 +5,23 @@ import API from "../../utils/API"
 
 class NewEmployee extends Component{
   state={
-    name:"",
-    currUsers:[]
+    Uname:"",
+    currUsers:[],
+    password:"",
+    first:"",
+    last:"",
+    firstExists:false,
+    lastExists:false,
+    UnameExists:false,
+    manager: false,
   }
 
   componentDidMount(){
-    API.getUserList().then(res=>{
+    this.loadEmps()
+  }
+
+  loadEmps = ()=>{
+    API.getEmployees().then(res=>{
       const working = res.data
       this.setState({
         currUsers:working
@@ -24,25 +35,75 @@ class NewEmployee extends Component{
     })
   }
 
+  createEmp=()=>{
+    let first = this.state.first;
+    let last = this.state.last;
+    let uName= this.state.Uname
+    const passed = {
+      first:first,
+      last:last,
+      uName:uName,
+      pword:this.state.password,
+      manager:this.state.manager
+    }
+    const Unames = this.state.currUsers.map(x=>x.username);
+    console.log(this.state.currUsers);
+    if(Unames.indexOf(passed.uName)<0){
+      this.dbUser(passed);
+    }
+  }
+
+  dbUser(passed){
+    console.log("Failsafe")
+    console.log(passed)
+    API.createEmployee(passed).then(ret=>{
+      console.log(ret)
+      this.loadEmps();
+      this.setState({
+        first:"",
+        last:"",
+        Uname:"",
+        password:"",
+      })
+    })
+  }
+
   render(){
     return(
       <div>
         <Row>
           <Col>
             <h1> New Employee</h1>
-            <Form>
+            <Form onSubmit={this.createEmp}>
               <FormGroup>
-                <Label>Employee Name</Label>
-                <Input id="name"></Input>
+                <Label>Username</Label>
+                <Input value={this.state.Uname} id="Uname" type="string" onChange={this.handleChange}></Input>
               </FormGroup>
               <FormGroup>
-                <Label></Label>
-                <Input></Input>
+                <Label>First Name</Label>
+                <Input value={this.state.first} id="first" type="string" onChange={this.handleChange}></Input>
               </FormGroup>
-              <button className="btn btn-primary"></button>
+              <FormGroup>
+                <Label>Last Name</Label>
+                <Input value={this.state.last} id="last" type="string" onChange={this.handleChange}></Input>
+              </FormGroup>
+              <FormGroup>
+                <Label>Password</Label>
+                <Input value={this.state.password} id="password" type="password" onChange={this.handleChange}></Input>
+              </FormGroup>
+              <FormGroup>
+                <Label>Manager</Label>
+                <Input value={this.state.password} id="password" type="password" onChange={this.handleChange}></Input>
+              </FormGroup>
+              <button className="btn btn-primary">Submit</button>
             </Form>
           </Col>
         </Row>
+        {this.state.errorUser && 
+          <div className="alert alert-danger">
+            <h1>This works</h1>
+          </div>
+        }
       </div>
     )
   }

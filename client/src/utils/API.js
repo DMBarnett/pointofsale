@@ -50,6 +50,12 @@ export default {
   },
   deleteItem: function(passed){
     return axios.delete(`/api/items/${passed}`);
+  },
+  getEmployees: function(){
+    return axios.get("/user/employees");
+  },
+  createEmployee: function(passed){
+    return axios.post("/user/employees", {pass:passed});
   }
 }
 
