@@ -166,6 +166,7 @@ class User extends Component {
       customer: foo,
       itemsOwned:this.state.itemsForDisplay
     }
+    console.log("User finalSale func")
     console.log(passed);
     API.sellItems(passed).then(res=>{
       console.log(res);

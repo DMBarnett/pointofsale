@@ -25,10 +25,10 @@ class Manager extends Component{
     cardAlreadyExists:false,
     createCardFailure: false,
     createCardSuccess: false,
-    cardReal: false,
     cardName:"",
     setID:"",
     quantity:0,
+    checkSetStatus: false
   }
 
   handleClick(input){
@@ -47,37 +47,65 @@ class Manager extends Component{
     })
   }
 
-  createCard=(e)=>{
-    e.preventDefault();
-    const newCard = {
-      name:this.state.cardName,
-      category:this.state.setID,
-      quantity: this.state.quantity,
-      price:0.00,
-    }
-    API.checkIfExists(newCard).then(ret=>{
-      console.log(ret)
-      if(ret.data.length && ret.data[0].name){
-        //This needs to check if card exist
-        this.setState({
-          cardAlreadyExists:true,
-        })
-      }else{
-        console.log(ret.data);
-        const work = ret.data
-        API.checkIfCardReal(newCard).then(ret=>{
-          console.log(ret)
-          if(ret.status == 200){
+
+  nextStep =(input, newCard)=>{
+    console.log(input);
+    if(input.data.length && input.data[0].name){
+      //This needs to check if card exist
+      this.setState({
+        cardAlreadyExists:true,
+        cardName:"",
+        setID:"",
+        quantity:0
+      })
+    }else{
+      console.log(input.data);
+      console.log("uhoh")
+      API.checkIfCardReal(newCard).then(ret=>{
+        console.log(ret)
+          if(ret.data.length){
             this.setState({
               createCardSuccess:true,
               cardName:"",
               setID:"",
               quantity:0
             })
+          }else{
+            this.setState({
+              createCardFailure:true,
+              cardName:"",
+              setID:"",
+              quantity:0
+            });
           }
-        });
+      });
+    }
+  }
+
+  createCard=(e)=>{
+    e.preventDefault();
+    let fixer = this.state.cardName.replace(/[\u2019]/g, "'")
+    console.log(fixer)
+    const newCard = {
+      name:fixer,
+      category:this.state.setID,
+      quantity: this.state.quantity,
+      price:0.00,
+    }
+    API.checkIfExists(newCard).then(ret=>{
+      if("setNotReal" in ret.data){
+        console.log("Faking it")
+        this.setState({
+          checkSetStatus: true,
+          cardName:"",
+          setID:"",
+          quantity:0
+        })
+      }else{
+        this.nextStep(ret, newCard);
       }
     })
+    
   }
 
   handleChange = event =>{
@@ -106,38 +134,37 @@ class Manager extends Component{
               </div>
             </Col>
             <Col xs="10" className="working-area">
-            {this.state.switchScreen.newE && <NewEmployee />}
-            {this.state.switchScreen.newC && <NewCustomer />}
-            {this.state.switchScreen.manageC && <ManageC />}
-            {this.state.switchScreen.addS && <AddSet />}
-            {this.state.switchScreen.inv && <UpdateInv />}
-            {this.state.switchScreen.hist && <PurchaseHist />}
-            {this.state.switchScreen.addC && 
-            <Row>
-            <Col>
-              <Form onSubmit={()=>this.createCard()}>
-                <FormGroup>
-                  <Label for="cardName">Card Name</Label>
-                  <Input id="cardName" onChange={this.handleChange} type="string" name="cardName" placeholder="Enter card name here" />
-                </FormGroup>
-                <FormGroup>
-                  <Label for="setID">Set abbreviation, three letters</Label>
-                  <Input id="setID" onChange={this.handleChange} type="string" name="setID" placeholder="Enter set abbreviation here" />
-                </FormGroup>
-                <FormGroup>
-                <Label for="quantity">Number of Cards</Label>
-                  <Input id="quantity" onChange={this.handleChange} type="string" name="quantity" placeholder="Enter quantity here" />
-                </FormGroup>
-                <button className="btn btn-primary" onClick={(event)=>this.createCard(event)}>Add Card</button>
-              </Form>
-            </Col>
-          </Row>}
+              {this.state.switchScreen.newE && <NewEmployee />}
+              {this.state.switchScreen.newC && <NewCustomer />}
+              {this.state.switchScreen.manageC && <ManageC />}
+              {this.state.switchScreen.addS && <AddSet />}
+              {this.state.switchScreen.inv && <UpdateInv />}
+              {this.state.switchScreen.hist && <PurchaseHist />}
+              {this.state.switchScreen.addC && <Row>
+                <Col>
+                  <Form onSubmit={()=>this.createCard()}>
+                    <FormGroup>
+                      <Label for="cardName">Card Name</Label>
+                      <Input id="cardName" onChange={this.handleChange} type="string" value={this.state.cardName} name="cardName" placeholder="Enter card name here" />
+                    </FormGroup>
+                    <FormGroup>
+                      <Label for="setID">Set abbreviation, three letters</Label>
+                      <Input id="setID" onChange={this.handleChange} type="string" value={this.state.setID} name="setID" placeholder="Enter set abbreviation here" />
+                    </FormGroup>
+                    <FormGroup>
+                    <Label for="quantity">Number of Cards</Label>
+                      <Input id="quantity" onChange={this.handleChange} type="string" value={this.state.quantity} name="quantity" placeholder="Enter quantity here" />
+                    </FormGroup>
+                    <button className="btn btn-primary" onClick={(event)=>this.createCard(event)}>Add Card</button>
+                  </Form>
+                </Col>
+              </Row>}
             </Col>
           </Row>
         </Container>
         {this.state.createCardFailure && <h1>createCardFailure</h1>/*popup says card couldnt be created*/}
+        {this.state.checkSetStatus && <h1>Set Doesn't Exist</h1>/*popup says set not found in local db*/}
         {this.state.createCardSuccess && <h1>createCardSuccess</h1>/*popup says card created successfully*/}
-        {this.state.cardReal && <h1>cardReal</h1>/*popup says card isn't real and to check entry*/}
         {this.state.cardAlreadyExists && <h1>cardAlreadyExists</h1>/*popup says card already exists*/}
       </div>
     )

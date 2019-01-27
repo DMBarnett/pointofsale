@@ -1,5 +1,6 @@
 .working-area{
   background-color: deepskyblue;
+  overflow: auto;
 }
 
 .fullScreen{

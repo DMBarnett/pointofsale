@@ -8,6 +8,14 @@ module.exports = function(sequelize, DataTypes) {
       type:DataTypes.STRING,
       allowNull: false
     },
+    customerName:{
+      type:DataTypes.STRING,
+      allowNull: false
+    },
+    cardName:{
+      type:DataTypes.STRING,
+      allowNull: false
+    },
     quantity:{
       type:DataTypes.INTEGER,
       allowNull: false

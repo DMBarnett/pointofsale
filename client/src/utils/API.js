@@ -41,6 +41,9 @@ export default {
       first:first
     }
     return axios.post("/tcg/cardSearch", pass);
+  },
+  getHistory: function(){
+    return axios.get("/api/history");
   }
 }
 

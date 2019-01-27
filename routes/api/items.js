@@ -43,9 +43,11 @@ history=(input, working, res)=>{
   console.log(quantSold);
   console.log(input);
   console.log(working.itemsSold.length);
-
+  console.log(working)
   db.History.create({
     customerID:working.customer.id,
+    customerName:working.customer.name,
+    cardName:input.name,
     item_id:input.id,
     quantity:quantSold[0].quantity,
     price_each:input.price
@@ -70,7 +72,7 @@ router.put("/", (req,res)=>{
     return arrFoo.indexOf(each.id)>=0;
   })
   targetForUpdate = working.itemsSold.length
-  console.log(itemsSoldArr)
+  console.log(working)
   itemsSoldArr.forEach(element=>{
     console.log(element);
     db.Item.update({

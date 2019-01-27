@@ -1,0 +1,11 @@
+.inventoryRows{
+  padding-top: 15px;
+  border-bottom: thin solid;
+}
+
+.submit-input{
+  width:40%;
+}
+.submit-form{
+  display:inline;
+}
