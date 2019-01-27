@@ -7,7 +7,8 @@ import API from "../../utils/API"
 class UpdateInv extends Component{
   state={
     inventory:[],
-
+    warningQPopup:false,
+    warningDPopup:false
   }
 
   componentDidMount(){
@@ -24,15 +25,47 @@ class UpdateInv extends Component{
     })
   }
 
-  updateInv=input=>{
+  updateInv=(id)=>{
     //Need to call API and update inventory here
-    //API.updateInventory(input).then(res=>{
-      // if(res.status===200){
-      //   this.loadInventory();
-      // }else{
-      // This should display error on item
-      // }
-    //})
+    const passing = {
+      id:id,
+      quantity: this.state.id
+    }
+    console.log()
+    API.updateInventory(passing).then(res=>{
+      if(res.status===200){
+        this.loadInventory();
+      }else{
+      //This should display error on item
+      this.setState({
+        warningQPopup: true,
+      })
+      }
+    })
+  }
+
+  handleChange = event =>{
+    if(event.target.value<event.target.dataset.max){
+      this.setState({
+        ...this.state, [event.target.id]: event.target.value
+      })
+      console.log(this.state)
+    }else{
+      this.setState()
+    }
+  }
+
+  deleteItem=id=>{
+    console.log(id)
+    API.deleteItem(id).then(res=>{
+      if(res.status===200){
+        this.loadInventory();
+      }else{
+        this.setState({
+          warningDPopup:true
+        })
+      }
+    })
   }
 
   render(){
@@ -40,7 +73,7 @@ class UpdateInv extends Component{
       <div>
         <Row>
           <Col>
-          <Row>
+            <Row>
               <Col xs="2">
                 <h4>Card name: Set</h4>
               </Col>
@@ -63,30 +96,30 @@ class UpdateInv extends Component{
             <br/>
             {this.state.inventory.map(each=>(
               <div className="inventoryRows">
-              <Row key={each.id}>
-              <Col xs="2">
-                <h6>{each.name}:{each.category}</h6>
-              </Col>
-              <Col xs="2">
-                <h6>{parseFloat(each.price).toFixed(2)}</h6>
-              </Col>
-              <Col xs="2">
-                <h6>{each.quantity}</h6>
-              </Col>
-              <Col xs="4">
-                <Form>
-                  <div class="input-group">
-                    <input class="form-control width100" />
-                    <span class="input-group-btn">
-                      <button class="btn btn-success" onClick={()=>this.updateInv(each.id)}>Submit</button>
-                    </span>
-                  </div>
-                </Form>
-              </Col>  
-              <Col xs="2">
-                <h6>Delete Button</h6>
-              </Col>
-            </Row>
+                <Row key={each.id}>
+                <Col xs="2">
+                  <h6>{each.name}:{each.category}</h6>
+                </Col>
+                <Col xs="2">
+                  <h6>{parseFloat(each.price).toFixed(2)}</h6>
+                </Col>
+                <Col xs="2">
+                  <h6>{each.quantity}</h6>
+                </Col>
+                <Col xs="4">
+                  <Form>
+                    <div className="input-group">
+                      <input data-max={each.quantity} data-current="0" onChange={this.handleChange} id={each.id} className="form-control width100" type="number"/>
+                      <span className="input-group-btn">
+                        <button className="btn btn-success">Submit</button>
+                      </span>
+                    </div>
+                  </Form>
+                </Col>  
+                <Col xs="2">
+                  <button className="btn btn-warning" id={each.id} onClick={()=>this.deleteItem(each.id)}>Delete</button>
+                </Col>
+              </Row>
             </div>
             ))}
           </Col>

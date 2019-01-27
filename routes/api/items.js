@@ -88,9 +88,14 @@ router.put("/", (req,res)=>{
 
 //Delete a product
 router.delete("/:id", (req, res) =>{
-  Product
-    .findById(req.params.id)
-    .then(item => item.remove().then(()=> res.json({sucess:true})))
+  console.log("deleting");
+  console.log(req.params.id);
+  db.Item.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(()=> res.json({sucess:true}))
     .catch(err => res.json(err))
 })
 

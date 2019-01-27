@@ -44,6 +44,12 @@ export default {
   },
   getHistory: function(){
     return axios.get("/api/history");
+  },
+  updateInventory: function(passed){
+    return axios.post("/api/inventory", {pass:passed})
+  },
+  deleteItem: function(passed){
+    return axios.delete(`/api/items/${passed}`);
   }
 }
 
