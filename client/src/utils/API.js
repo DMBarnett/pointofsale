@@ -56,6 +56,9 @@ export default {
   },
   createEmployee: function(passed){
     return axios.post("/user/employees", {pass:passed});
+  },
+  createCust:function(passed){
+    return axios.post("/api/customer", {pass:passed});
   }
 }
 

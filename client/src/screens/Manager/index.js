@@ -119,7 +119,7 @@ class Manager extends Component{
       <div className="fullscreen h-100 w-100">
         <Container fluid className="w-100">
           <Row className="fullScreen">
-            <Col className="px-1 bg-light" xs="2">
+            <Col className="px-1 bg-light sidebar" xs="2">
               <div className="py-2 sticky-top flex-grow-1">
                   <div className="nav flex-sm-column">
                       <a href="#" className="nav-link d-none d-sm-inline" ><h3>Sidebar</h3></a>
@@ -130,6 +130,7 @@ class Manager extends Component{
                       <a href="#" className="nav-link" onClick={()=>this.handleClick("addC")}>Add Card</a>
                       <a href="#" className="nav-link" onClick={()=>this.handleClick("inv")}>Update inventory</a>
                       <a href="#" className="nav-link" onClick={()=>this.handleClick("hist")}>Purchase history</a>
+                      <a href="/ULogin" className="nav-link" >Sale Screen</a>
                   </div>
               </div>
             </Col>

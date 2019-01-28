@@ -48,6 +48,7 @@ class NewEmployee extends Component{
     }
     const Unames = this.state.currUsers.map(x=>x.username);
     console.log(this.state.currUsers);
+    console.log(this.state)
     if(Unames.indexOf(passed.uName)<0){
       this.dbUser(passed);
     }
@@ -92,8 +93,11 @@ class NewEmployee extends Component{
                 <Input value={this.state.password} id="password" type="password" onChange={this.handleChange}></Input>
               </FormGroup>
               <FormGroup>
-                <Label>Manager</Label>
-                <Input value={this.state.password} id="password" type="password" onChange={this.handleChange}></Input>
+                <Label>Manager Status</Label>
+                <select className="custom-select" id="manager" value={this.state.manager} onChange={this.handleChange}>
+                  <option value="false" selected>Associate</option>
+                  <option value="true">Manager</option>
+                </select>              
               </FormGroup>
               <button className="btn btn-primary">Submit</button>
             </Form>

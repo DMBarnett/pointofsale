@@ -4,6 +4,7 @@ const categoryRoutes = require("./categories");
 const managerRoutes = require("./manager");
 const historyRoutes = require("./history");
 const inventoryRoutes = require("./inventory");
+const customerRoutes = require("./customer");
 
 // Book routes
 router.use("/items", itemRoutes);
@@ -11,5 +12,6 @@ router.use("/categories", categoryRoutes)
 router.use("/manager", managerRoutes)
 router.use("/history", historyRoutes)
 router.use("/inventory", inventoryRoutes)
+router.use("/customer", customerRoutes)
 
 module.exports = router;
