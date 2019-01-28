@@ -25,7 +25,22 @@ class AddSet extends Component{
   }
 
   createSet=()=>{
-    
+    const currentSetAbbs=this.state.currSets.map(x=>x.abbreviation);
+    const currentSetNames=this.state.currSets.map(x=>x.name);
+    const working = {
+      name:this.state.name,
+      abb:this.state.abbreviation,
+    }
+    const allCats = []
+    if(currentSetAbbs.indexOf(working.abb)<0 && currentSetNames.indexOf(working.name)){
+      API.getAllCatas().then(res=>{
+        console.log(res)
+        allCats = res.data.results.map(x=>x.name)
+      })
+      API.createNewSet(working).then(res=>{
+        console.log(res);
+      })
+    }
   }
 
 

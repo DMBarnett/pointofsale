@@ -59,6 +59,12 @@ export default {
   },
   createCust:function(passed){
     return axios.post("/api/customer", {pass:passed});
+  },
+  createNewSet:function(passed){
+    return axios.post("/", {pass:passed});
+  },
+  getAllCatas: function(){
+    
   }
 }
 
