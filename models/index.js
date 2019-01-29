@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
-const env = process.env.NODE_ENV || "development";
+const env = process.env.JAWS_DB || "development";
 const config = require(__dirname +"/../config/config.json")[env];
 const sequelize = new Sequelize(config);
 let db = {};
