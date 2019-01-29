@@ -5,7 +5,7 @@ import NewEmployee from "../../components/NewEmployee"
 import NewCustomer from "../../components/NewCustomer"
 import ManageC from "../../components/ManageC"
 import AddSet from "../../components/AddSet"
-import AddCard from "../../components/AddCard"
+import UpdatePrices from "../../components/UpdatePrices"
 import UpdateInv from "../../components/UpdateInv"
 import PurchaseHist from "../../components/PurchaseHist"
 import API from "../../utils/API"
@@ -21,6 +21,7 @@ class Manager extends Component{
       addC:false,
       inv:false,
       hist:false,
+      updatePrices:false,
     },
     cardAlreadyExists:false,
     createCardFailure: false,
@@ -40,6 +41,7 @@ class Manager extends Component{
       addC:false,
       inv:false,
       hist:false,
+      updatePrices: false,
     }
     switchScreen[input] = true;
     this.setState({
@@ -51,7 +53,6 @@ class Manager extends Component{
   nextStep =(input, newCard)=>{
     console.log(input);
     if(input.data.length && input.data[0].name){
-      //This needs to check if card exist
       this.setState({
         cardAlreadyExists:true,
         cardName:"",
@@ -94,7 +95,6 @@ class Manager extends Component{
     }
     API.checkIfExists(newCard).then(ret=>{
       if("setNotReal" in ret.data){
-        console.log("Faking it")
         this.setState({
           checkSetStatus: true,
           cardName:"",
@@ -129,12 +129,14 @@ class Manager extends Component{
                       <a href="#" className="nav-link" onClick={()=>this.handleClick("addS")}>Add Set</a>
                       <a href="#" className="nav-link" onClick={()=>this.handleClick("addC")}>Add Card</a>
                       <a href="#" className="nav-link" onClick={()=>this.handleClick("inv")}>Update inventory</a>
+                      <a href="#" className="nav-link" onClick={()=>this.handleClick("updatePrices")}>Update Prices</a>
                       <a href="#" className="nav-link" onClick={()=>this.handleClick("hist")}>Purchase history</a>
                       <a href="/ULogin" className="nav-link" >Sale Screen</a>
                   </div>
               </div>
             </Col>
             <Col xs="10" className="working-area">
+              {this.state.switchScreen.updatePrices && <UpdatePrices />}
               {this.state.switchScreen.newE && <NewEmployee />}
               {this.state.switchScreen.newC && <NewCustomer />}
               {this.state.switchScreen.manageC && <ManageC />}

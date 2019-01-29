@@ -7,6 +7,7 @@ const groupIDList=["DOM"]
 router.put("/", (req, res)=>{
   console.log("Card Check")
   console.log(req.body);
+  //need to change if to check if set is in DB
   if(groupIDList.indexOf(req.body.pass.category)>=0){
     db.Item.findAll({
       where: {

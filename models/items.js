@@ -36,6 +36,14 @@ module.exports = function(sequelize, DataTypes) {
         is: ["^[0-9]+$",'i']
       }
     },
+    tcgID:{
+      type:DataTypes.INTEGER,
+      allowNull: false,
+      validate:{
+        len:[6,6],
+        is:["^[0-9]+$",'i'],
+      }
+    },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   });

@@ -61,10 +61,13 @@ export default {
     return axios.post("/api/customer", {pass:passed});
   },
   createNewSet:function(passed){
-    return axios.post("/", {pass:passed});
+    return axios.post("/api/set", {pass:passed});
   },
   getAllCatas: function(){
-    
+    return axios.get("/tcg/setSearch");
+  },
+  updatePrices: function(passed){
+    return axios.post("/tcg/priceUpdate", {pass:passed});
   }
 }
 

@@ -8,30 +8,35 @@ module.exports = {
         abbreviation: "GRN",
         createdAt: new Date(),
         updatedAt: new Date(),
+        groupID:2290
       },
       {
         name: "Core 2019",
         abbreviation:"M19",
         createdAt: new Date(),
         updatedAt: new Date(),
+        groupID:2250
       },
       {
         name: "Dominaria",
         abbreviation:"DOM",
         createdAt: new Date(),
         updatedAt: new Date(),
+        groupID:2199
       },
       {
         name: "Rivals of Ixalan",
         abbreviation:"RIX",
         createdAt: new Date(),
         updatedAt: new Date(),
+        groupID:2098
       },
       {
         name: "Ixalan",
         abbreviation:"XLN",
         createdAt: new Date(),
         updatedAt: new Date(),
+        groupID:2043
       },
     ], {});
 
@@ -49,6 +54,7 @@ module.exports = {
         quantity: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
+        tcgID:162150
       },
       {
         name:"Carnage Tyrant",
@@ -57,6 +63,7 @@ module.exports = {
         quantity: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
+        tcgID:142022,
       },
       {
         name:"Arclight Phoenix",
@@ -65,6 +72,7 @@ module.exports = {
         quantity: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
+        tcgID:176685
       },
       {
         name:"Rekindling Phoenix",
@@ -73,6 +81,7 @@ module.exports = {
         quantity: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
+        tcgID:155691,
       },
       {
         name:"Nicol Bolas, the Ravager",
@@ -81,6 +90,7 @@ module.exports = {
         quantity: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
+        tcgID:168740
       },
       {
         name:"Karn, Scion of Urza",
@@ -89,6 +99,7 @@ module.exports = {
         quantity: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
+        tcgID:162259
       },
       {
         name:"Vivien Reid",
@@ -97,6 +108,7 @@ module.exports = {
         quantity: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
+        tcgID:168614
       },
       {
         name:"The Immortal Sun",
@@ -105,6 +117,7 @@ module.exports = {
         quantity: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
+        tcgID:155586
       },
       {
         name:"History of Benalia",
@@ -113,6 +126,7 @@ module.exports = {
         quantity: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
+        tcgID:162200
       },
       {
         name:"Resplendent Angel",
@@ -121,6 +135,7 @@ module.exports = {
         quantity: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
+        tcgID:168773
       },
       {
         name:"Search for Azcanta",
@@ -129,6 +144,7 @@ module.exports = {
         quantity: 5,
         createdAt: new Date(),
         updatedAt: new Date(),
+        tcgID:145370
       },
     ], {})
   },

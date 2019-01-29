@@ -2,12 +2,12 @@
   Working, need to style it
   ##Need to build footer and finalize sale button
     ##needs popup card for payment
-  clean up css for user screen
+  ##clean up css for user screen
   ##Should chose Card/Cash/Account on sale
   ##make applyCredit function
   ##make lookup function
 
-Fix history.price to take float, need to rebuild DB
+##Fix history.price to take float, need to rebuild DB
 
 Fix bug:
   When switching sets on user page, deleting an item from another set causes an error
@@ -20,14 +20,17 @@ Fix bug:
 
 ##reduce this.state.total when items are deleted
 
-get api call to tcgplayer working
+##get api call to tcgplayer working
 
 Build manager screen 
   Needs to include
-    CRUD Card/Set/User/Customer
+    ##CRUD Card/Set/User/Customer
     Pull TCG data button(timed?)
-    Build each component
-    History rows need building
+    ##Build each component
+    ##History rows need building
 
 Fix passport
   Do I fake it?
+
+
+Add tcgID to cards

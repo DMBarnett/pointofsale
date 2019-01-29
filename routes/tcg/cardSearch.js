@@ -15,16 +15,15 @@ const groupIDs={
 }
 
 router.post("/", (req, res)=>{
+  console.log("prices 123")
+  console.log(req.body)
   let currPrice = 0.00;
   const config = {
     headers:header
   }
   const target=groupIDs[req.body.pass.category]
   axios.post("https://api.tcgplayer.com/v1.20.0/catalog/categories/1/search", req.body.first, config).then(foo=>{
-    //console.log(ret)
-    console.log("working on it")
-    console.log(foo.data.results)
-    console.log(foo.data.results.length)
+    console.log(foo.data)
     if(foo.data.results.length === 0){
       console.log("cardNotFound")
       const cardNotFound ={
@@ -33,23 +32,24 @@ router.post("/", (req, res)=>{
       res.json(cardNotFound);
     }else{
       foo.data.results.forEach(element=>{
+        console.log("opt search")
+        console.log(element);
         axios.get("http://api.tcgplayer.com/v1.19.0/catalog/products/"+element, config).then(ret=>{
-          if(ret.data.results[0].groupId === target){
-            console.log("Success");
+          console.log(ret.data.results)
+
+          if(ret.data.results[0].groupId === target && ret.data.results[0].name === req.body.pass.name){
             axios.get("https://api.tcgplayer.com/v1.20.0/pricing/product/"+element, config).then(ret=>{
-              console.log(ret.data.results)
-              console.log(ret.data.results[0].midPrice)
               currPrice = ret.data.results[0].midPrice;
               
               db.Item.create({
                 name:req.body.pass.name,
                 price:currPrice,
                 category:req.body.pass.category,
-                quantity:req.body.pass.quantity
+                quantity:req.body.pass.quantity,
+                tcgID:element,
               }).then(ret=>{
-                console.log(ret);
+                //console.log(ret);
                 res.json(ret);
-                //console.log(safeJsonStringify(ret))
               })
             })
           }else{

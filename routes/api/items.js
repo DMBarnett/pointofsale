@@ -32,6 +32,7 @@ router.post("/", (req, res) =>{
     name: req.body.name,
     price: req.body.price,
     quantity: req.body.quantity,
+    tcgID: req.body.tcgID,
   })
   newProduct.save().then(product => res.json(product))
 })

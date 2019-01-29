@@ -24,21 +24,24 @@ class AddSet extends Component{
     })
   }
 
-  createSet=()=>{
+  createSet=(e)=>{
+    e.preventDefault();
     const currentSetAbbs=this.state.currSets.map(x=>x.abbreviation);
     const currentSetNames=this.state.currSets.map(x=>x.name);
     const working = {
       name:this.state.name,
       abb:this.state.abbreviation,
     }
-    const allCats = []
+    let allCats = []
     if(currentSetAbbs.indexOf(working.abb)<0 && currentSetNames.indexOf(working.name)){
       API.getAllCatas().then(res=>{
-        console.log(res)
-        allCats = res.data.results.map(x=>x.name)
-      })
-      API.createNewSet(working).then(res=>{
-        console.log(res);
+        console.log(res.data)
+        allCats = res.data.map(x=>x.name);
+        let tester = res.data.filter(x=>x.abbreviation===working.abb)
+        if(tester.length === 1){
+          API.createNewSet(working).then(res=>{
+          })
+        }
       })
     }
   }
