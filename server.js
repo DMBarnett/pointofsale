@@ -6,7 +6,7 @@ const googleStrat = require("passport-google-oauth20").Strategy;
 const GSkey = require("./config/keys");
 const routes = require("./routes")
 const path =require("path")
-const PORT = process.env.port || 3002;
+const PORT = process.env.PORT || 3002;
 const db = require("./models")
 
 app.use(express.urlencoded({ extended:true }));
