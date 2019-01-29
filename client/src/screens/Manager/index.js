@@ -9,6 +9,7 @@ import UpdatePrices from "../../components/UpdatePrices"
 import UpdateInv from "../../components/UpdateInv"
 import PurchaseHist from "../../components/PurchaseHist"
 import API from "../../utils/API"
+import Modal from "../../components/Modal"
 
 
 class Manager extends Component{
@@ -49,6 +50,12 @@ class Manager extends Component{
     })
   }
 
+  toggleModal = () => {
+    console.log(this.state.checkSetStatus)
+    this.setState({
+      checkSetStatus: !this.state.checkSetStatus
+    });
+  }
 
   nextStep =(input, newCard)=>{
     console.log(input);
@@ -101,6 +108,7 @@ class Manager extends Component{
           setID:"",
           quantity:0
         })
+        this.toggleModal();
       }else{
         this.nextStep(ret, newCard);
       }
@@ -165,10 +173,78 @@ class Manager extends Component{
             </Col>
           </Row>
         </Container>
-        {this.state.createCardFailure && <h1>createCardFailure</h1>/*popup says card couldnt be created*/}
-        {this.state.checkSetStatus && <h1>Set Doesn't Exist</h1>/*popup says set not found in local db*/}
-        {this.state.createCardSuccess && <h1>createCardSuccess</h1>/*popup says card created successfully*/}
-        {this.state.cardAlreadyExists && <h1>cardAlreadyExists</h1>/*popup says card already exists*/}
+        {this.state.createCardFailure && 
+        <div className="modal" id="createCardFailure">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Couldnt Create Card</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p>An error occured, please check your spelling.</p>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>/*popup says card couldnt be created*/}
+        
+        <Modal show={this.state.checkSetStatus} id="checkSetStatus" onClose={this.toggleModal}>Pass to Modal</Modal>
+
+        {/* // <div className="modal" id="setNotCorrect">
+        //   <div className="modal-dialog" role="document">
+        //     <div className="modal-content">
+        //       <div className="modal-header">
+        //         <h5 className="modal-title">Couldnt Create Card</h5>
+        //         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+        //           <span aria-hidden="true">&times;</span>
+        //         </button>
+        //       </div>
+        //       <div className="modal-body">
+        //         <p>An error occured, the set abbreviation is incorrect.</p>
+        //       </div>
+        //       <div className="modal-footer">
+        //         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+        //       </div>
+        //     </div>
+        //   </div>
+        // </div>popup says set not found in local db*/}
+      
+        {this.state.createCardSuccess && 
+        <div className="modal" id="cardSuccess">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Card created successfully</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>/*popup says card created successfully*/}
+        {this.state.cardAlreadyExists && <div className="modal" id="createCard failure">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Card Already Exists</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>/*popup says card already exists*/}
       </div>
     )
   }
