@@ -11,7 +11,9 @@ const db = require("./models")
 
 app.use(express.urlencoded({ extended:true }));
 app.use(bodyParser.json());
-
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 require("./routes/api/categories.js")(app);
 
 app.use(routes);
