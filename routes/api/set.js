@@ -6,7 +6,8 @@ const db = require("../../models")
 router.post("/", (req,res)=>{
   db.Category.create({
     name:req.body.pass.name,
-    abbreviation:req.body.pass.abb
+    abbreviation:req.body.pass.abb,
+    groupID:req.body.pass.groupID
   }).then(ret=>res.json(ret))
 })
 
