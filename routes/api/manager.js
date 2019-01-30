@@ -14,7 +14,10 @@ router.put("/", (req, res)=>{
     console.log(typeof res)
     console.log(Object.keys(bar))
     console.log(res[0].dataValues);
-    groupIDList= res.filter(x=>x.dataValues.name=== req.body.pass.category)
+    groupIDList= res.filter(x=>{
+      console.log(x)
+      x.dataValues.name=== req.body.pass.category
+    })
     console.log(groupIDList);
     //console.log(res.data)
     if(groupIDList.indexOf(req.body.pass.category)>=0){
