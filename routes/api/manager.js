@@ -8,12 +8,12 @@ router.put("/", (req, res)=>{
   console.log(req.body);
   //need to change if to check if set is in DB
   db.Category.findAll({}).then(res=>{
-    const groupIDList = [];
+    let groupIDList = [];
     //console.log(res);
     let bar = res;
     console.log(typeof res)
     console.log(Object.keys(bar))
-    console.log(res[0]);
+    console.log(res[0].dataValues);
     groupIDList= res.filter(x=>x.dataValues.name=== req.body.pass.category)
     console.log(groupIDList);
     //console.log(res.data)
