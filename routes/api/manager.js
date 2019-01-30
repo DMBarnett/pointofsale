@@ -11,7 +11,7 @@ router.put("/", (req, res)=>{
     let groupIDList = [];
     //console.log(res);
     let bar = ret;
-    // console.log(typeof ret)
+    console.log(req.body.pass)
     console.log(Object.keys(bar))
     // console.log(ret[0].dataValues);
 
@@ -19,7 +19,7 @@ router.put("/", (req, res)=>{
       console.log("inner test")
       console.log(x.dataValues.name)
       console.log(req.body.pass.category)
-      return x.dataValues.name=== req.body.pass.category
+      return x.dataValues.abbreviation=== req.body.pass.category
     })
     console.log(groupIDList);
     //console.log(res.data)
