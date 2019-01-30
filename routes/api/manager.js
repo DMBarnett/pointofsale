@@ -9,10 +9,10 @@ router.put("/", (req, res)=>{
   //need to change if to check if set is in DB
   db.Category.findAll({}).then(res=>{
     const groupIDList = [];
-    console.log(res);
-    groupIDList= res.data.filter(x=>x.name=== req.body.pass.category)
+    console.log(res.dataValues);
+    groupIDList= res.dataValues.filter(x=>x.name=== req.body.pass.category)
     console.log(groupIDList);
-    console.log(res.data)
+    //console.log(res.data)
     if(groupIDList.indexOf(req.body.pass.category)>=0){
       db.Item.findAll({
         where: {
