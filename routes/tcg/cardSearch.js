@@ -13,7 +13,7 @@ const header ={
 const groupIDs={
   DOM:2199
 }
-
+//db.Category.findAll({}).then(res=>)
 router.post("/", (req, res)=>{
   console.log("prices 123")
   console.log(req.body)
