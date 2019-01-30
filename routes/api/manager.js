@@ -23,7 +23,8 @@ router.put("/", (req, res)=>{
     })
     console.log(groupIDList);
     //console.log(res.data)
-    if(groupIDList.indexOf(req.body.pass.category)>=0){
+    if(groupIDList.dataValues.abbreviation===req.body.pass.category){
+      console.log("sent")
       db.Item.findAll({
         where: {
           category: req.body.pass.category,
