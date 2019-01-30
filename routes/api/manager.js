@@ -7,14 +7,16 @@ router.put("/", (req, res)=>{
   console.log("Card Check")
   console.log(req.body);
   //need to change if to check if set is in DB
-  db.Category.findAll({}).then(res=>{
+  db.Category.findAll({}).then(ret=>{
     let groupIDList = [];
     //console.log(res);
-    let bar = res;
-    console.log(typeof res)
+    let bar = ret;
+    // console.log(typeof ret)
     console.log(Object.keys(bar))
-    console.log(res[0].dataValues);
-    groupIDList= res.filter(x=>{
+    // console.log(ret[0].dataValues);
+
+    groupIDList= ret.filter(x=>{
+      console.log("inner test")
       console.log(x)
       x.dataValues.name=== req.body.pass.category
     })
