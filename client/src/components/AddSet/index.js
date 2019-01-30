@@ -39,7 +39,9 @@ class AddSet extends Component{
         console.log(res.data)
         allCats = res.data.map(x=>x.name);
         let tester = res.data.filter(x=>x.abbreviation===working.abb)
-        working.groupID = res.data.filter(x=>x.abbreviation===working.abb)[0].groupID
+        working.groupID = res.data.filter(x=>x.abbreviation===working.abb)[0].groupId;
+        console.log(tester);
+        //working.groupID=tester[0].groupId;
         console.log(working);
         if(tester.length === 1){
           API.createNewSet(working).then(res=>{
