@@ -133,7 +133,7 @@ class Manager extends Component{
                       <a href="#" className="nav-link d-none d-sm-inline" ><h3>Sidebar</h3></a>
                       <a href="#" className="nav-link" onClick={()=>this.handleClick("newE")}>New Employee</a>
                       <a href="#" className="nav-link" onClick={()=>this.handleClick("newC")}>New Customer</a>
-                      <a href="#" className="nav-link" onClick={()=>this.handleClick("manageC")}>Manage Customer</a>
+                      {/* <a href="#" className="nav-link" onClick={()=>this.handleClick("manageC")}>Manage Customer</a> */}
                       <a href="#" className="nav-link" onClick={()=>this.handleClick("addS")}>Add Set</a>
                       <a href="#" className="nav-link" onClick={()=>this.handleClick("addC")}>Add Card</a>
                       <a href="#" className="nav-link" onClick={()=>this.handleClick("inv")}>Update inventory</a>

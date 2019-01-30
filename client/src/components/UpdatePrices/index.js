@@ -33,7 +33,7 @@ class AddCard extends Component{
   render(){
     return(
       <div>
-        <a href="#" role="button" className="btn btn-lg btn-success" onClick={()=>this.callAPI()}>Update Prices</a>
+        <a href="#" role="button" className="btn btn-lg btn-success upper" onClick={()=>this.callAPI()}>Update Prices</a>
       </div>
     ) 
   }
