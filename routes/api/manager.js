@@ -17,8 +17,8 @@ router.put("/", (req, res)=>{
 
     groupIDList= ret.filter(x=>{
       console.log("inner test")
-      console.log(x.dataValues[0])
-      x.dataValues[0].name=== req.body.pass.category
+      console.log(x.dataValues)
+      x.dataValues.name=== req.body.pass.category
     })
     console.log(groupIDList);
     //console.log(res.data)
