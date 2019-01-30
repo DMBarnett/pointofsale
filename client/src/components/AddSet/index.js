@@ -31,6 +31,7 @@ class AddSet extends Component{
     const working = {
       name:this.state.name,
       abb:this.state.abbreviation,
+      groupID:0,
     }
     let allCats = []
     if(currentSetAbbs.indexOf(working.abb)<0 && currentSetNames.indexOf(working.name)){
@@ -38,6 +39,8 @@ class AddSet extends Component{
         console.log(res.data)
         allCats = res.data.map(x=>x.name);
         let tester = res.data.filter(x=>x.abbreviation===working.abb)
+        working[groupID] = res.data.filter(x=>x.abbreviation===working.abb).groupID
+        console.log(working);
         if(tester.length === 1){
           API.createNewSet(working).then(res=>{
           })
