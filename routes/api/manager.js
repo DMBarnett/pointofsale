@@ -4,27 +4,13 @@ const db = require("../../models")
 
 
 router.put("/", (req, res)=>{
-  console.log("Card Check")
-  console.log(req.body);
   //need to change if to check if set is in DB
   db.Category.findAll({}).then(ret=>{
     let groupIDList = [];
-    //console.log(res);
-    let bar = ret;
-    console.log(req.body.pass)
-    console.log(Object.keys(bar))
-    // console.log(ret[0].dataValues);
-
     groupIDList= ret.filter(x=>{
-      console.log("inner test")
-      console.log(x.dataValues.name)
-      console.log(req.body.pass.category)
       return x.dataValues.abbreviation=== req.body.pass.category
     })
-    console.log(groupIDList);
-    //console.log(res.data)
     if(groupIDList[0].dataValues.abbreviation===req.body.pass.category){
-      console.log("sent")
       db.Item.findAll({
         where: {
           category: req.body.pass.category,
@@ -35,7 +21,6 @@ router.put("/", (req, res)=>{
       const setDoesntExist = {
         setNotReal: true
       }
-      console.log("Doesnt exist")
       res.json(setDoesntExist)
     }
   })

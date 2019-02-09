@@ -40,11 +40,6 @@ router.post("/", (req, res) =>{
 
 history=(input, working, res)=>{
   const quantSold = working.itemsSold.filter(x=>x.id===input.id);
-  console.log("quantSold");
-  console.log(quantSold);
-  console.log(input);
-  console.log(working.itemsSold.length);
-  console.log(working)
   db.History.create({
     customerID:working.customer.id,
     customerName:working.customer.name,
@@ -89,8 +84,6 @@ router.put("/", (req,res)=>{
 
 //Delete a product
 router.delete("/:id", (req, res) =>{
-  console.log("deleting");
-  console.log(req.params.id);
   db.Item.destroy({
     where: {
       id: req.params.id

@@ -25,12 +25,10 @@ class NewCustomer extends Component{
       this.setState({
         currCustomers:res.data
       })
-      console.log(res)
     })
   }
 
   createUser=()=>{
-    console.log(this.state)
     const names = this.state.currCustomers.map(x=>x.name);
     const passed = {
       name:this.state.name,
@@ -43,7 +41,6 @@ class NewCustomer extends Component{
 
   newCust=(passed)=>{
     API.createCust(passed).then(res=>{
-      console.log(res);
       this.setState({
         name:"",
         credit:0.00

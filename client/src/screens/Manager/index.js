@@ -51,14 +51,12 @@ class Manager extends Component{
   }
 
   toggleModal = () => {
-    console.log(this.state.checkSetStatus)
     this.setState({
       checkSetStatus: !this.state.checkSetStatus
     });
   }
 
   nextStep =(input, newCard)=>{
-    console.log(input);
     if(input.data.length && input.data[0].name){
       this.setState({
         cardAlreadyExists:true,
@@ -67,10 +65,7 @@ class Manager extends Component{
         quantity:0
       })
     }else{
-      console.log(input.data);
-      console.log("uhoh")
       API.checkIfCardReal(newCard).then(ret=>{
-        console.log(ret)
           if(ret.data.length){
             this.setState({
               createCardSuccess:true,
@@ -93,7 +88,6 @@ class Manager extends Component{
   createCard=(e)=>{
     e.preventDefault();
     let fixer = this.state.cardName.replace(/[\u2019]/g, "'")
-    console.log(fixer)
     const newCard = {
       name:fixer,
       category:this.state.setID,
@@ -195,25 +189,7 @@ class Manager extends Component{
         
         <Modal show={this.state.checkSetStatus} id="checkSetStatus" onClose={this.toggleModal}>Pass to Modal</Modal>
 
-        {/* // <div className="modal" id="setNotCorrect">
-        //   <div className="modal-dialog" role="document">
-        //     <div className="modal-content">
-        //       <div className="modal-header">
-        //         <h5 className="modal-title">Couldnt Create Card</h5>
-        //         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-        //           <span aria-hidden="true">&times;</span>
-        //         </button>
-        //       </div>
-        //       <div className="modal-body">
-        //         <p>An error occured, the set abbreviation is incorrect.</p>
-        //       </div>
-        //       <div className="modal-footer">
-        //         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-        //       </div>
-        //     </div>
-        //   </div>
-        // </div>popup says set not found in local db*/}
-      
+        
         {this.state.createCardSuccess && 
         <div className="modal" id="cardSuccess">
           <div className="modal-dialog" role="document">

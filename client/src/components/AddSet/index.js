@@ -17,7 +17,6 @@ class AddSet extends Component{
 
   getSets=()=>{
     API.getCategories().then(res=>{
-      console.log(res)
       this.setState({
         currSets:res.data
       })
@@ -36,13 +35,9 @@ class AddSet extends Component{
     let allCats = []
     if(currentSetAbbs.indexOf(working.abb)<0 && currentSetNames.indexOf(working.name)){
       API.getAllCatas().then(res=>{
-        console.log(res.data)
         allCats = res.data.map(x=>x.name);
         let tester = res.data.filter(x=>x.abbreviation===working.abb)
         working.groupID = res.data.filter(x=>x.abbreviation===working.abb)[0].groupId;
-        console.log(tester);
-        //working.groupID=tester[0].groupId;
-        console.log(working);
         if(tester.length === 1){
           API.createNewSet(working).then(res=>{
           })

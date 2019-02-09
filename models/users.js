@@ -27,29 +27,5 @@ module.exports = (sequelize, DataTypes)=>{
       type:DataTypes.STRING,
     }
   })
-  // ,{
-  //   classMethods: {
-  //     validPassword: function(password, passwd, done, user){
-  //       bcrypt.compare(password, passwd, function(err, isMatch){
-  //         if(err){ console.log(err)};
-  //         if(isMatch){
-  //           return done(null, user);
-  //         }else {
-  //           return done(null, false)
-  //         }
-  //       })
-  //     }
-  //   }
-  // })
-  // User.hook("beforeCreate", function(user, fn){
-  //   let salt = bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
-  //     return salt
-  //   });
-  //   bcrypt.hash(user.password, salt, null, function(err, hash){
-  //     if(err) return next(err);
-  //     user.password = hash;
-  //     return fn(null, user);
-  //   })
-  // })
   return User;
 }

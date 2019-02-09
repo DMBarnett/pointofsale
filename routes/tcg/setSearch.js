@@ -14,7 +14,6 @@ router.get("/", (req, res)=>{
     headers:header
   }
   axios.get("http://api.tcgplayer.com/v1.19.0/catalog/groups?categoryId=1&isSupplemental=false&limit=250", config).then(foo=>{
-   //console.log(foo.data.results);
     res.json(foo.data.results);
   })
 })

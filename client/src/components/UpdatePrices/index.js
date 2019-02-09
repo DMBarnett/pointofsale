@@ -13,8 +13,7 @@ class AddCard extends Component{
 
   loadInventory=()=>{
     API.getItems().then(ret=>{
-      console.log(ret);
-      console.log("Update Inventory, pull from db")
+
       this.setState({
         inventory:ret.data
       })
@@ -22,11 +21,8 @@ class AddCard extends Component{
   }
 
   callAPI(){
-    console.log(this.state.inventory)
     let work = this.state.inventory.map(x=>x.tcgID);
-    console.log(work)
     API.updatePrices(work).then(res=>{
-      console.log(res)
     })
   }
 

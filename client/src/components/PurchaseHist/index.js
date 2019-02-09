@@ -15,7 +15,6 @@ class PurchaseHist extends Component{
   loadHistory=()=>{
     API.getHistory().then(res=>{
       const work = res.data;
-      console.log(res.data)
       this.setState({
         history:work
       })

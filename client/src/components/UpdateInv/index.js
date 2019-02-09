@@ -18,8 +18,6 @@ class UpdateInv extends Component{
 
   loadInventory=()=>{
     API.getItems().then(ret=>{
-      console.log(ret);
-      console.log("Update Inventory, pull from db")
       this.setState({
         inventory:ret.data
       })
@@ -30,13 +28,11 @@ class UpdateInv extends Component{
     //Need to call API and update inventory here
     const original = this.state.inventory.filter(x=>x.id===id)[0].quantity
     let newQuant = 0
-    console.log()
     if(this.state[id].charAt(0)=== "-"){
       let foo = this.state[id].split("").slice(1).join("");
       foo = parseInt(foo)
       newQuant = original - foo;
-      console.log("minus")
-      console.log(foo)
+
 
     }else{
       let foo = parseInt(this.state[id])
@@ -46,7 +42,6 @@ class UpdateInv extends Component{
       id:id,
       quantity: newQuant
     }
-    console.log(passing)
     API.updateInventory(passing).then(res=>{
       if(res.status===200){
         this.loadInventory();
@@ -66,7 +61,6 @@ class UpdateInv extends Component{
   }
 
   deleteItem=id=>{
-    console.log(id)
     API.deleteItem(id).then(res=>{
       if(res.status===200){
         this.loadInventory();

@@ -10,7 +10,6 @@ import ActionRow from "../../components/ActionRow";
 
 class User extends Component {
   state = {
-    //test: [{name:"test1", id:0}, {name:"test2", id:1}],
     active: 0,
     categoriesForDisplay: [],
     itemsForDisplay:[],
@@ -27,16 +26,12 @@ class User extends Component {
   }
 
   componentDidMount(){
-    console.log("Loaded");
     this.loadCategories();
   }
 
   loadCategories=()=>{
     //this will pull the categories for the navbar buttons in the server screen
     API.getCategories().then(res =>{
-      console.log(res.data)
-      console.log(res.data[0])
-      console.log(res.data[0].name)
       this.setState({
         categoriesForDisplay:res.data
       })
@@ -44,7 +39,6 @@ class User extends Component {
   }
 
   deleteItem=id=>{
-    console.log(id)
     const forDeletion = this.state.saleItems.filter(item=>item.id===id);
 
     const position = this.state.saleItems.map(each=> each.id).indexOf(forDeletion[0].id);
@@ -74,9 +68,7 @@ class User extends Component {
   navClick=(id, abb)=>{
     let targetID = id;
     let targetABB = abb;
-    console.log(targetABB)
     API.getItemsPerCategory(targetABB).then(res=>{
-      console.log(res);
       this.setState({
         active:targetID,
         itemsForDisplay:res.data
@@ -90,7 +82,6 @@ class User extends Component {
       const working = this.state.itemsForDisplay.filter(item=>{
         return item.id === id;
       })
-      console.log(working[0]);
       const newItem = {
         quantity: 1,
         name: working[0].name,
@@ -138,11 +129,9 @@ class User extends Component {
     const price = this.state.total;
     switch(input){
       case "card":
-        console.log("Your card has been charged");
         this.finalSale();
         break;
       case "cash":
-        console.log("Your card has been charged");
         this.finalSale();
         break;
       default:
@@ -166,10 +155,7 @@ class User extends Component {
       customer: foo,
       itemsOwned:this.state.itemsForDisplay
     }
-    console.log("User finalSale func")
-    console.log(passed);
     API.sellItems(passed).then(res=>{
-      console.log(res);
       this.setState({
         active: 0,
         categoriesForDisplay: [],
@@ -186,7 +172,6 @@ class User extends Component {
         finalSale: false,
       });
       this.loadCategories();
-      console.log("reset after sale")
     })
   }
 
@@ -198,9 +183,7 @@ class User extends Component {
 
   lookup=()=>{
     const customer=this.state.customer;
-    console.log(customer)
     API.getUserList(customer).then(res=>{
-      console.log(res);
       this.setState({
         possCust:res.data,
         custSelect: true,
@@ -227,7 +210,6 @@ class User extends Component {
       newCredit:custCredit,
     }
     API.useCredit(working).then(res=>{
-      console.log(res)
       let foo = false;
       if(newTotal === 0){
         foo = true;

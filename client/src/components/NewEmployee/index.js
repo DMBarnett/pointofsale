@@ -47,18 +47,13 @@ class NewEmployee extends Component{
       manager:this.state.manager
     }
     const Unames = this.state.currUsers.map(x=>x.username);
-    console.log(this.state.currUsers);
-    console.log(this.state)
     if(Unames.indexOf(passed.uName)<0){
       this.dbUser(passed);
     }
   }
 
   dbUser(passed){
-    console.log("Failsafe")
-    console.log(passed)
     API.createEmployee(passed).then(ret=>{
-      console.log(ret)
       this.loadEmps();
       this.setState({
         first:"",

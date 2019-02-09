@@ -61,8 +61,6 @@ router.get("/", (req, res)=>{
 })
 
 router.put("/", (req, res)=>{
-  // console.log(req);
-  // console.log("ipdating")
   db.Customer.update({
     store_credit:req.body.newCredit
   },{where:{id:req.body.id}})
