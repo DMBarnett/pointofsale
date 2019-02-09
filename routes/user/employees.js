@@ -9,8 +9,6 @@ router.get("/", (req, res)=>{
 })
 
 router.post("/", (req, res)=>{
-  console.log(req.body);
-  console.log("working on it")
   db.User.create({
     first_name:req.body.pass.first,
     last_name:req.body.pass.last,

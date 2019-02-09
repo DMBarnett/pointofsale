@@ -7,7 +7,6 @@ const db = require("../../models")
 router.get("/", (req, res) =>{
   db.Item.findAll({})
   .then(products => {
-    console.log("items tester");
     res.json(products);
   })
 });
@@ -19,7 +18,6 @@ router.get("/:abb", (req, res) =>{
     }
   })
   .then(products => {
-    console.log("item category tester");
     res.json(products);
   })
 })
@@ -27,7 +25,6 @@ router.get("/:abb", (req, res) =>{
 //Create a new product to the db
 //Post to the db
 router.post("/", (req, res) =>{
-  console.log(req.body);
   const newProduct = new Product({
     name: req.body.name,
     price: req.body.price,
@@ -68,9 +65,7 @@ router.put("/", (req,res)=>{
     return arrFoo.indexOf(each.id)>=0;
   })
   targetForUpdate = working.itemsSold.length
-  console.log(working)
   itemsSoldArr.forEach(element=>{
-    console.log(element);
     db.Item.update({
       quantity:element.quantity
     },{where:{id:element.id}})

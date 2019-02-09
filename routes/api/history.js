@@ -5,7 +5,6 @@ const db = require("../../models")
 router.get("/", (req, res) =>{
     db.History.findAll({})
     .then(products => {
-      console.log("history tester");
       res.json(products);
     })
   });

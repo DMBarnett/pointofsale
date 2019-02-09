@@ -10,14 +10,12 @@ const Op = Sequelize.Op;
 router.post("/login", 
   passport.authenticate("local"),
   (req, res)=>{
-    console.log(req.body);
-    db.User.findOne({
+\    db.User.findOne({
       where:{
         username:req.body.username,
       }
     }).then(function(returned){
-      console.log(returned);
-      if(returned.manager){
+\      if(returned.manager){
         const userlogin = {
           username: req.body.username,
           loggedIn: true,
@@ -37,11 +35,7 @@ router.post("/login",
 )
 
 router.get("/:passed", (req,res)=>{
-  console.log("user passed");
-
   let foo = "%" + req.params.passed.substr(1)+"%";
-
-  console.log(foo);
   db.Customer.findAll({
     where:{
       name:{

@@ -44,7 +44,6 @@ module.exports = {
       "SELECT abbreviation from CATEGORIES"
     );
     const catas = foo[0]
-    console.log(catas)
 
     return await queryInterface.bulkInsert("items", [
       {
