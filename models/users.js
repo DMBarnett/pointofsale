@@ -26,7 +26,11 @@ module.exports = (sequelize, DataTypes)=>{
     password: {
       type:DataTypes.STRING,
       allowNull: false,
-    }
+    },
+    status: {
+      type: Sequelize.ENUM('active', 'inactive'),
+      defaultValue: 'active'
+  }
   });
   User.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
